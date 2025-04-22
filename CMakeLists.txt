@@ -15,8 +15,12 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Sql)
 set(PROJECT_SOURCES
         src/main.cpp
         src/mainwindow.cpp
-        include/mainwindow.h
+        include/mainwindow.hpp
         src/mainwindow.ui
+        src/socket.cpp
+        include/socket.hpp
+        src/sqlite.cpp
+        include/sqlite.hpp
 )
 
 if (${QT_VERSION_MAJOR} GREATER_EQUAL 6)
