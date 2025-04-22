@@ -44,7 +44,7 @@ endif ()
 
 target_include_directories(VeriYapilari
         PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/include
+        include
 )
 
 target_link_libraries(VeriYapilari PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Sql)
@@ -65,7 +65,7 @@ set_target_properties(VeriYapilari PROPERTIES
 
 include(GNUInstallDirs)
 install(TARGETS VeriYapilari
-        BUNDLE DESTINATION .
+        BUNDLE DESTINATION TemelTasarım
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
