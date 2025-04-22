@@ -1,12 +1,12 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
+#pragma once
 
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
    class MainWindow;
-
 }
 QT_END_NAMESPACE
 

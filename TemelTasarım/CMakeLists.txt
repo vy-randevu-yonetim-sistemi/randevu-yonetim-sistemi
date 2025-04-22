@@ -13,10 +13,10 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Sql)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Sql)
 
 set(PROJECT_SOURCES
-        main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
+        src/main.cpp
+        src/mainwindow.cpp
+        include/mainwindow.h
+        src/mainwindow.ui
 )
 
 if (${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -41,6 +41,11 @@ else ()
         )
     endif ()
 endif ()
+
+target_include_directories(VeriYapilari
+        PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
 
 target_link_libraries(VeriYapilari PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Sql)
 

@@ -78,7 +78,6 @@ void MainWindow::randevuEkle() {
 }
 
 void MainWindow::randevuGoster() {
-
    ui->textEditListe->clear();
 
    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
@@ -103,7 +102,7 @@ void MainWindow::randevuGoster() {
 }
 
 void MainWindow::randevuSorgula() {
-   QString tc = ui->lineEditSorgu->text();
+   QString tc = ui->lineEditTC->text();
 
    if (tc.isEmpty()) {
       QMessageBox::warning(this, "Eksik Bilgi", "Lütfen TC numarasını girin.");
@@ -126,10 +125,10 @@ void MainWindow::randevuSorgula() {
    QStringList randevuListe;
 
    if (query.next()) {
+      // Veritabanında TC numarasına ait randevu bulundu
       do {
          QString ad = query.value("ad").toString();
          QString tarih = query.value("tarih").toString();
-         QString tc = query.value("tc").toString();
          QString saat = query.value("saat").toString();
          QString doktor = query.value(doktor).toString();
 
