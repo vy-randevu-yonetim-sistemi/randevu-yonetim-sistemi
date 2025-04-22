@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1163</width>
+    <height>853</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>110</y>
+      <width>291</width>
+      <height>631</height>
+     </rect>
+    </property>
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0" colspan="2">
+      <widget class="QListView" name="listViewListe"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="labelAd">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Hasta Adı:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="lineEditAd"/>
+     </item>
+     <item row="10" column="1">
+      <widget class="QTextEdit" name="textEditListe"/>
+     </item>
+     <item row="24" column="1">
+      <widget class="QLineEdit" name="lineEditSorgu"/>
+     </item>
+     <item row="25" column="1">
+      <widget class="QPushButton" name="btnSorgu">
+       <property name="text">
+        <string>Randevu Sorgula</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="lineEditTC"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="labelTC">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>TC:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QLineEdit" name="lineEditTarih"/>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="labelTarih">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Tarih:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="1">
+      <widget class="QPushButton" name="btnEkle">
+       <property name="text">
+        <string>Randevu Ekle</string>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="1">
+      <widget class="QPushButton" name="btnSil">
+       <property name="text">
+        <string>Randevu Sil</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="1">
+      <widget class="QPushButton" name="btnGoster">
+       <property name="text">
+        <string>Göster</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QComboBox" name="comboBoxSaat">
+       <item>
+        <property name="text">
+         <string>08.00</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>08.30</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>09.00</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>09.30</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>10.00</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>10.30</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>11.00</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>11.30</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="24" column="0">
+      <widget class="QLabel" name="labelSorgu">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Sorgu için TC:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="QComboBox" name="comboBoxDoktor">
+       <item>
+        <property name="text">
+         <string>Hasım Karatasım</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Murat Kocataner</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Yasin Aktarak</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Ayşe Tane</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Ali Duraneller</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Tahsin Munuroğlu</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="labelTarih_2">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Saat:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="labelDoktor">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Doktor:</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1163</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
