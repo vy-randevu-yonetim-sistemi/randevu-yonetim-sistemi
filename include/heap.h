@@ -1,0 +1,5 @@
+#ifndef VERIYAPILARI_HEAP_H
+#define VERIYAPILARI_HEAP_H
+#pragma once
+
+#endif // VERIYAPILARI_HEAP_H
