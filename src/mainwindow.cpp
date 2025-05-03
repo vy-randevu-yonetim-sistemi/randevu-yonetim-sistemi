@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include "sqlite.h"
 #include "randevu.h"
-
+#include "QCalendarWidget"
 #include <QMessageBox>
 #include <QStringListModel>
 #include <QDebug>
@@ -10,11 +10,13 @@
 MainWindow::MainWindow(QWidget *parent)
         : QMainWindow(parent), ui(new Ui::MainWindow) {
    ui->setupUi(this);
+   randevular_form = new randevular();
 
    connect(ui->btnEkle, &QPushButton::clicked, this, &MainWindow::randevuEkle);
    connect(ui->btnSil, &QPushButton::clicked, this, &MainWindow::randevuSil);
    connect(ui->btnGoster, &QPushButton::clicked, this, &MainWindow::randevuGoster);
    connect(ui->btnSorgu, &QPushButton::clicked, this, &MainWindow::randevuSorgula);
+   connect(ui->calendarWidgetTarih, &QCalendarWidget::selectionChanged,this, &MainWindow::tarihSec);
 
    if (!SQLiteManager::instance().openDatabase()) {
       QMessageBox::critical(this, "Veritabanı Hatası", "Veritabanı açılamadı!");
@@ -25,11 +27,18 @@ MainWindow::~MainWindow() {
    delete ui;
 }
 
+QString MainWindow::tarihSec()
+{
+   QDate tarih = ui->calendarWidgetTarih->selectedDate();
+   QString strTarih = tarih.toString();
+   return strTarih;
+}
+
 void MainWindow::randevuEkle() {
    Randevu r;
    r.ad = ui->lineEditAd->text().trimmed();
    r.tc = ui->lineEditTC->text().trimmed();
-   r.tarih = ui->lineEditTarih->text().trimmed();
+   r.tarih = tarihSec();
    r.saat = ui->comboBoxSaat->currentText();
    r.doktor = ui->comboBoxDoktor->currentText();
 
@@ -39,7 +48,12 @@ void MainWindow::randevuEkle() {
    }
 
    if (SQLiteManager::instance().randevuEkle(r)) {
-      ui->textEditListe->append("✓ Veritabanına eklendi:\nHasta Adı: " + r.ad);
+      ui->textEditListe->append("✓ Veritabanına eklendi:\nHasta Adı: " + r.ad +
+                                "\nHasta TC: " + r.tc +
+                                "\nRandevu Tarihi: " + r.tarih +
+                                "\nRandevu Saati: " + r.saat +
+                                "\nDoktor: " + r.doktor);
+
       bekleyenRandevular.enqueue(r);
    } else {
       ui->textEditListe->append("× Kayıt başarısız.");
@@ -47,7 +61,6 @@ void MainWindow::randevuEkle() {
 
    ui->lineEditAd->clear();
    ui->lineEditTC->clear();
-   ui->lineEditTarih->clear();
 }
 
 void MainWindow::sonrakiRandevu() {
@@ -78,6 +91,8 @@ void MainWindow::randevuGoster() {
       QString line = QString("%1 - %2 - %3 - %4 - %5")
               .arg(r.ad, r.tc, r.tarih, r.saat, r.doktor);
       randevuListe.append(line);
+
+      randevular_form->show();
    }
 
    auto *model = new QStringListModel(randevuListe, this);

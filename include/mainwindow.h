@@ -4,6 +4,7 @@
 
 #include "queue.h"
 #include "randevu.h"
+#include "randevular.h"
 
 #include <QMainWindow>
 
@@ -24,6 +25,8 @@ public:
 private:
     Ui::MainWindow *ui;
 
+   randevular *randevular_form;
+
 private:
     Queue<Randevu> bekleyenRandevular;
 
@@ -36,6 +39,8 @@ private:
     void randevuGoster();
 
     void randevuSorgula();
+
+    QString tarihSec();
 };
 
 #endif// MAINWINDOW_H

@@ -24,12 +24,18 @@ set(PROJECT_SOURCES
         include/randevu.h
         include/queue.h
         include/heap.h
-)
+        src/randevular.cpp
+        src/randevular.ui
+        include/randevular.h
+    )
+
 
 if (${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(VeriYapilari
             MANUAL_FINALIZATION
             ${PROJECT_SOURCES}
+
+
     )
     # Define target properties for Android with Qt 6 as:
     #    set_property(TARGET VeriYapilari APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
