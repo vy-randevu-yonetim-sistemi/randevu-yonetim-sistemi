@@ -4,8 +4,7 @@
 
 #include "queue.h"
 #include "randevu.h"
-#include "randevular.h"
-
+#include "stack.h"
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
@@ -25,8 +24,6 @@ public:
 private:
     Ui::MainWindow *ui;
 
-   randevular *randevular_form;
-
 private:
     Queue<Randevu> bekleyenRandevular;
 
@@ -40,7 +37,16 @@ private:
 
     void randevuSorgula();
 
-    QString tarihSec();
+    void stackEkle();
+
+    void stacktenCikar();
+
+    void stackGoster();
+
+private:
+    Ui::MainWindow *ui;
+    Queue<Randevu> bekleyenRandevular; 
+    Stack randevuStack;  
 };
 
 #endif// MAINWINDOW_H
