@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include "sqlite.h"
 #include "randevu.h"
-#include "QCalendarWidget"
+
 #include <QMessageBox>
 #include <QStringListModel>
 #include <QDebug>
@@ -10,14 +10,15 @@
 MainWindow::MainWindow(QWidget *parent)
         : QMainWindow(parent), ui(new Ui::MainWindow) {
    ui->setupUi(this);
-   randevular_form = new randevular();
 
    connect(ui->btnEkle, &QPushButton::clicked, this, &MainWindow::randevuEkle);
    connect(ui->btnSil, &QPushButton::clicked, this, &MainWindow::randevuSil);
    connect(ui->btnGoster, &QPushButton::clicked, this, &MainWindow::randevuGoster);
    connect(ui->btnSorgu, &QPushButton::clicked, this, &MainWindow::randevuSorgula);
-   connect(ui->calendarWidgetTarih, &QCalendarWidget::selectionChanged,this, &MainWindow::tarihSec);
-
+   connect(ui->btnStackEkle, &QPushButton::clicked, this, &MainWindow::stackEkle);
+   connect(ui->btnStackCikar, &QPushButton::clicked, this, &MainWindow::stacktenCikar);
+   connect(ui->btnStackGoster, &QPushButton::clicked, this, &MainWindow::stackGoster);
+   
    if (!SQLiteManager::instance().openDatabase()) {
       QMessageBox::critical(this, "Veritabanı Hatası", "Veritabanı açılamadı!");
    }
@@ -27,18 +28,11 @@ MainWindow::~MainWindow() {
    delete ui;
 }
 
-QString MainWindow::tarihSec()
-{
-   QDate tarih = ui->calendarWidgetTarih->selectedDate();
-   QString strTarih = tarih.toString();
-   return strTarih;
-}
-
 void MainWindow::randevuEkle() {
    Randevu r;
    r.ad = ui->lineEditAd->text().trimmed();
    r.tc = ui->lineEditTC->text().trimmed();
-   r.tarih = tarihSec();
+   r.tarih = ui->lineEditTarih->text().trimmed();
    r.saat = ui->comboBoxSaat->currentText();
    r.doktor = ui->comboBoxDoktor->currentText();
 
@@ -48,12 +42,7 @@ void MainWindow::randevuEkle() {
    }
 
    if (SQLiteManager::instance().randevuEkle(r)) {
-      ui->textEditListe->append("✓ Veritabanına eklendi:\nHasta Adı: " + r.ad +
-                                "\nHasta TC: " + r.tc +
-                                "\nRandevu Tarihi: " + r.tarih +
-                                "\nRandevu Saati: " + r.saat +
-                                "\nDoktor: " + r.doktor);
-
+      ui->textEditListe->append("✓ Veritabanına eklendi:\nHasta Adı: " + r.ad);
       bekleyenRandevular.enqueue(r);
    } else {
       ui->textEditListe->append("× Kayıt başarısız.");
@@ -61,6 +50,7 @@ void MainWindow::randevuEkle() {
 
    ui->lineEditAd->clear();
    ui->lineEditTC->clear();
+   ui->lineEditTarih->clear();
 }
 
 void MainWindow::sonrakiRandevu() {
@@ -91,8 +81,6 @@ void MainWindow::randevuGoster() {
       QString line = QString("%1 - %2 - %3 - %4 - %5")
               .arg(r.ad, r.tc, r.tarih, r.saat, r.doktor);
       randevuListe.append(line);
-
-      randevular_form->show();
    }
 
    auto *model = new QStringListModel(randevuListe, this);
@@ -150,4 +138,43 @@ void MainWindow::randevuSil() {
    } else {
       QMessageBox::warning(this, "Hata", "Silme işlemi başarısız.");
    }
+
+void MainWindow::stackEkle() {
+   Randevu r;
+   r.ad = ui->lineEditAd->text().trimmed();
+   r.tc = ui->lineEditTC->text().trimmed();
+   r.tarih = ui->lineEditTarih->text().trimmed();
+   r.saat = ui->comboBoxSaat->currentText();
+   r.doktor = ui->comboBoxDoktor->currentText();
+  
+   if (r.ad.isEmpty() || r.tc.isEmpty() || r.tarih.isEmpty()) {
+      QMessageBox::warning(this, "Eksik Bilgi", "Stack'e eklemek için zorunlu alanları doldurun.");
+      return;
+   }
+  
+   randevuStack.push(r);
+   ui->textEditListe->append("✓ Stack'e eklendi: " + r.ad);
+  }
+
+  void MainWindow::stacktenCikar() {
+   try {
+       Randevu r = randevuStack.pop();
+       ui->textEditListe->append("✗ Stack'ten çıkarıldı: " + r.ad);
+   } catch (const std::runtime_error& e) {
+       QMessageBox::warning(this, "Stack Hatası", e.what());
+   }
+}
+
+void MainWindow::stackGoster() {
+   try {
+       Randevu r = randevuStack.top();
+       QString info = QString("Stack'in En Üstündeki Randevu:\n"
+                            "Ad: %1\nTC: %2\nTarih: %3\nSaat: %4\nDoktor: %5")
+                    .arg(r.ad, r.tc, r.tarih, r.saat, r.doktor);
+       QMessageBox::information(this, "Stack Görüntüle", info);
+   } catch (const std::runtime_error& e) {
+       QMessageBox::warning(this, "Stack Hatası", e.what());
+   }
+}
+
 }

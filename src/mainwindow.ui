@@ -17,10 +17,10 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>80</y>
-      <width>426</width>
-      <height>798</height>
+      <x>380</x>
+      <y>110</y>
+      <width>291</width>
+      <height>631</height>
      </rect>
     </property>
     <layout class="QFormLayout" name="formLayout">
@@ -43,11 +43,7 @@
       <widget class="QLineEdit" name="lineEditAd"/>
      </item>
      <item row="10" column="1">
-      <widget class="QTextEdit" name="textEditListe">
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-      </widget>
+      <widget class="QTextEdit" name="textEditListe"/>
      </item>
      <item row="24" column="1">
       <widget class="QLineEdit" name="lineEditSorgu"/>
@@ -73,6 +69,9 @@
         <string>TC:</string>
        </property>
       </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QLineEdit" name="lineEditTarih"/>
      </item>
      <item row="4" column="0">
       <widget class="QLabel" name="labelTarih">
@@ -220,9 +219,6 @@
         <string>Doktor:</string>
        </property>
       </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QCalendarWidget" name="calendarWidgetTarih"/>
      </item>
     </layout>
    </widget>
