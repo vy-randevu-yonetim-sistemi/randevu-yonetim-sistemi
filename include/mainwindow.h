@@ -5,6 +5,7 @@
 #include "queue.h"
 #include "randevu.h"
 #include "stack.h"
+#include "DoubleLinkedList.h"
 #include "randevular.h"
 #include <QMainWindow>
 #include <QStack>
