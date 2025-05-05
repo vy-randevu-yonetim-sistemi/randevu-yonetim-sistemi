@@ -8,6 +8,7 @@
 #include <QDebug>
 #include "QCalendarWidget"
 #include "stack.h"
+#include "DoubleLinkedList.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
