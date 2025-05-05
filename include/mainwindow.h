@@ -5,48 +5,51 @@
 #include "queue.h"
 #include "randevu.h"
 #include "stack.h"
+#include "randevular.h"
 #include <QMainWindow>
+#include <QStack>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
-    class MainWindow;
+   class MainWindow;
 }
 QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow {
-Q_OBJECT
+   Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
+   explicit MainWindow(QWidget *parent = nullptr);
 
-    ~MainWindow() override;
-
-private:
-    Ui::MainWindow *ui;
+   ~MainWindow() override;
 
 private:
-    Queue<Randevu> bekleyenRandevular;
-
-    void randevuEkle();
-
-    void sonrakiRandevu();
-
-    void randevuSil();
-
-    void randevuGoster();
-
-    void randevuSorgula();
-
-    void stackEkle();
-
-    void stacktenCikar();
-
-    void stackGoster();
-
+   Ui::MainWindow *ui;
+   randevular *randevular_form;
 private:
-    Ui::MainWindow *ui;
-    Queue<Randevu> bekleyenRandevular; 
-    Stack randevuStack;  
+   Queue<Randevu> bekleyenRandevular;
+
+   QStack<Randevu> randevuStack;
+
+   void randevuEkle();
+
+   void sonrakiRandevu();
+
+   void randevuSil();
+
+   void randevuGoster();
+
+   void randevuSorgula();
+
+   void stackEkle();
+
+   void stacktenCikar();
+
+   void stackGoster();
+
+   QString tarihSec();
+
+   void sayfaGec();
 };
 
 #endif// MAINWINDOW_H

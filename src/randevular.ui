@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>160</x>
@@ -78,7 +78,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="btnSonrakiRandevu">
        <property name="text">
         <string>Sonraki</string>
        </property>
@@ -154,6 +154,19 @@ li.checked::marker { content: &quot;\2612&quot;; }
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QPushButton" name="btnAnaSayfa">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>20</y>
+      <width>211</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Randevu Ekranı Görüntüle</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

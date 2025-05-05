@@ -2,7 +2,8 @@
 #define RANDEVULAR_H
 
 #include <QMainWindow>
-
+#include "QQueue"
+#include "randevu.h"
 namespace Ui {
    class randevular;
 }
@@ -11,11 +12,19 @@ class randevular : public QMainWindow {
    Q_OBJECT
 
 public:
-   explicit randevular(QWidget *parent = nullptr);
+   explicit randevular(QMainWindow* mainWindow, QWidget *parent = nullptr);
    ~randevular();
 
 private:
    Ui::randevular *ui;
+
+   QQueue<Randevu> bekleyenRandevular;
+
+   QMainWindow* m_mainWindow;
+
+   void geriSayfaGec();
+
+   void sonrakiRandevu();
 };
 
 #endif// RANDEVULAR_H

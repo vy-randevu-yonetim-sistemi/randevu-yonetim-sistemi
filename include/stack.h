@@ -21,6 +21,7 @@ public:
     Randevu pop();
     Randevu top() const;
     bool isEmpty() const;
+    size_t size() const;
 };
 
 #endif

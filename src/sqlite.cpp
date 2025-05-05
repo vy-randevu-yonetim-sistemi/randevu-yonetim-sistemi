@@ -157,3 +157,25 @@ bool SQLiteManager::randevuSil(const Randevu &r) {
 
    return query.numRowsAffected() > 0;
 }
+
+QStack<Randevu> SQLiteManager::stackDepola() const {
+   QSqlDatabase db = QSqlDatabase::database(connectionName);
+   QSqlQuery query(db);
+   QStack<Randevu> results;
+
+   if (!query.exec("SELECT * FROM randevular")) {
+      qWarning() << "Upload failed:" << query.lastError().text();
+      return results;
+   }
+
+   while (query.next()) {
+      Randevu r;
+      r.ad = query.value("ad").toString();
+      r.tc = query.value("tc").toString();
+      r.tarih = query.value("tarih").toString();
+      r.saat = query.value("saat").toString();
+      r.doktor = query.value("doktor").toString();
+      results.push(r);
+   }
+   return results;
+}

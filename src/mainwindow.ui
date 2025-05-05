@@ -17,10 +17,10 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>380</x>
-      <y>110</y>
-      <width>291</width>
-      <height>631</height>
+      <x>160</x>
+      <y>0</y>
+      <width>426</width>
+      <height>798</height>
      </rect>
     </property>
     <layout class="QFormLayout" name="formLayout">
@@ -42,22 +42,6 @@
      <item row="2" column="1">
       <widget class="QLineEdit" name="lineEditAd"/>
      </item>
-     <item row="10" column="1">
-      <widget class="QTextEdit" name="textEditListe"/>
-     </item>
-     <item row="24" column="1">
-      <widget class="QLineEdit" name="lineEditSorgu"/>
-     </item>
-     <item row="25" column="1">
-      <widget class="QPushButton" name="btnSorgu">
-       <property name="text">
-        <string>Randevu Sorgula</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QLineEdit" name="lineEditTC"/>
-     </item>
      <item row="3" column="0">
       <widget class="QLabel" name="labelTC">
        <property name="font">
@@ -70,39 +54,18 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="1">
-      <widget class="QLineEdit" name="lineEditTarih"/>
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="lineEditTC"/>
      </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="labelTarih">
+     <item row="5" column="0">
+      <widget class="QLabel" name="labelTarih_2">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>Tarih:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="1">
-      <widget class="QPushButton" name="btnEkle">
-       <property name="text">
-        <string>Randevu Ekle</string>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="1">
-      <widget class="QPushButton" name="btnSil">
-       <property name="text">
-        <string>Randevu Sil</string>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="1">
-      <widget class="QPushButton" name="btnGoster">
-       <property name="text">
-        <string>Göster</string>
+        <string>Saat:</string>
        </property>
       </widget>
      </item>
@@ -150,15 +113,15 @@
        </item>
       </widget>
      </item>
-     <item row="24" column="0">
-      <widget class="QLabel" name="labelSorgu">
+     <item row="6" column="0">
+      <widget class="QLabel" name="labelDoktor">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>Sorgu için TC:</string>
+        <string>Doktor:</string>
        </property>
       </widget>
      </item>
@@ -196,31 +159,94 @@
        </item>
       </widget>
      </item>
-     <item row="5" column="0">
-      <widget class="QLabel" name="labelTarih_2">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
+     <item row="7" column="1">
+      <widget class="QPushButton" name="btnEkle">
        <property name="text">
-        <string>Saat:</string>
+        <string>Randevu Ekle</string>
        </property>
       </widget>
      </item>
-     <item row="6" column="0">
-      <widget class="QLabel" name="labelDoktor">
+     <item row="8" column="1">
+      <widget class="QPushButton" name="btnSil">
+       <property name="text">
+        <string>Randevu Sil</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="1">
+      <widget class="QPushButton" name="btnGoster">
+       <property name="text">
+        <string>Göster</string>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="1">
+      <widget class="QTextEdit" name="textEditListe">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="24" column="0">
+      <widget class="QLabel" name="labelSorgu">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
         </font>
        </property>
        <property name="text">
-        <string>Doktor:</string>
+        <string>Sorgu için TC:</string>
        </property>
       </widget>
+     </item>
+     <item row="24" column="1">
+      <widget class="QLineEdit" name="lineEditSorgu"/>
+     </item>
+     <item row="25" column="1">
+      <widget class="QPushButton" name="btnSorgu">
+       <property name="text">
+        <string>Randevu Sorgula</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="labelTarih">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Tarih:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QCalendarWidget" name="calendarWidgetTarih"/>
      </item>
     </layout>
+   </widget>
+   <widget class="QPushButton" name="btnRandevularSayfa">
+    <property name="geometry">
+     <rect>
+      <x>720</x>
+      <y>200</y>
+      <width>211</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #3498db;
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    padding: 6px 12px;
+}</string>
+    </property>
+    <property name="text">
+     <string>Randevu Ekranı Görüntüle</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

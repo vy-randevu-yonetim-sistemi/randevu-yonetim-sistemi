@@ -7,6 +7,7 @@
 #include <QString>
 #include <QVariantMap>
 #include <QList>
+#include <QStack>
 
 class SQLiteManager {
 public:
@@ -16,8 +17,10 @@ public:
 
     bool randevuEkle(const Randevu& data);
     [[nodiscard]] QList<Randevu> randevular() const;
+    [[nodiscard]] QStack<Randevu> stackDepola() const;
     [[nodiscard]] QList<Randevu> randevuTC(const QString& tc) const;
     bool randevuSil(const Randevu& data);
+
 
     SQLiteManager(const SQLiteManager&) = delete;
     SQLiteManager& operator=(const SQLiteManager&) = delete;
