@@ -19,6 +19,7 @@ public:
     [[nodiscard]] QList<Randevu> randevular() const;
     [[nodiscard]] QStack<Randevu> stackDepola() const;
     [[nodiscard]] QList<Randevu> randevuTC(const QString& tc) const;
+    [[nodiscard]] QList<Randevu> randevularByDoktor(const QString& doktorAdi) const;
     bool randevuSil(const Randevu& data);
 
 

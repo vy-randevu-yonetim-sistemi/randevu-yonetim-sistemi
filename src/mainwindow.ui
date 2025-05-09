@@ -13,25 +13,50 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget {
+    background-color: #1e1e2f;
+    color: white;
+    font-family: &quot;Segoe UI&quot;;
+    font-size: 10pt;
+}
+</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>160</x>
       <y>0</y>
-      <width>426</width>
-      <height>798</height>
+      <width>457</width>
+      <height>875</height>
      </rect>
     </property>
     <layout class="QFormLayout" name="formLayout">
      <item row="0" column="0" colspan="2">
-      <widget class="QListView" name="listViewListe"/>
+      <widget class="QListView" name="listViewListe">
+       <property name="styleSheet">
+        <string notr="true">QLineEdit {
+    background-color: #2e2e3e;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 6px;
+    padding: 4px 8px;
+}
+
+QLineEdit:focus {
+    border: 1px solid #3b82f6;
+}
+</string>
+       </property>
+      </widget>
      </item>
      <item row="2" column="0">
       <widget class="QLabel" name="labelAd">
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <family>Segoe UI</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
@@ -40,13 +65,29 @@
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QLineEdit" name="lineEditAd"/>
+      <widget class="QLineEdit" name="lineEditAd">
+       <property name="styleSheet">
+        <string notr="true">QLineEdit {
+    background-color: #2e2e3e;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 6px;
+    padding: 4px 8px;
+}
+
+QLineEdit:focus {
+    border: 1px solid #3b82f6;
+}
+</string>
+       </property>
+      </widget>
      </item>
      <item row="3" column="0">
       <widget class="QLabel" name="labelTC">
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <family>Segoe UI</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
@@ -55,13 +96,29 @@
       </widget>
      </item>
      <item row="3" column="1">
-      <widget class="QLineEdit" name="lineEditTC"/>
+      <widget class="QLineEdit" name="lineEditTC">
+       <property name="styleSheet">
+        <string notr="true">QLineEdit {
+    background-color: #2e2e3e;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 6px;
+    padding: 4px 8px;
+}
+
+QLineEdit:focus {
+    border: 1px solid #3b82f6;
+}
+</string>
+       </property>
+      </widget>
      </item>
      <item row="5" column="0">
       <widget class="QLabel" name="labelTarih_2">
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <family>Segoe UI</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
@@ -71,6 +128,22 @@
      </item>
      <item row="5" column="1">
       <widget class="QComboBox" name="comboBoxSaat">
+       <property name="styleSheet">
+        <string notr="true">QComboBox {
+    background-color: #2e2e3e;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 6px;
+    padding: 4px 8px;
+}
+
+QComboBox QAbstractItemView {
+    background-color: #2e2e3e;
+    color: white;
+    selection-background-color: #3b82f6;
+}
+</string>
+       </property>
        <item>
         <property name="text">
          <string>08.00</string>
@@ -117,7 +190,8 @@
       <widget class="QLabel" name="labelDoktor">
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <family>Segoe UI</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
@@ -127,6 +201,22 @@
      </item>
      <item row="6" column="1">
       <widget class="QComboBox" name="comboBoxDoktor">
+       <property name="styleSheet">
+        <string notr="true">QComboBox {
+    background-color: #2e2e3e;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 6px;
+    padding: 4px 8px;
+}
+
+QComboBox QAbstractItemView {
+    background-color: #2e2e3e;
+    color: white;
+    selection-background-color: #3b82f6;
+}
+</string>
+       </property>
        <item>
         <property name="text">
          <string>Hasım Karatasım</string>
@@ -161,6 +251,21 @@
      </item>
      <item row="7" column="1">
       <widget class="QPushButton" name="btnEkle">
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    background-color: #3b82f6;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 12px;
+}
+
+QPushButton:hover {
+    background-color: #2563eb;
+}
+</string>
+       </property>
        <property name="text">
         <string>Randevu Ekle</string>
        </property>
@@ -168,6 +273,21 @@
      </item>
      <item row="8" column="1">
       <widget class="QPushButton" name="btnSil">
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    background-color: #ef4444;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 12px;
+}
+
+QPushButton:hover {
+    background-color: #dc2626;
+}
+</string>
+       </property>
        <property name="text">
         <string>Randevu Sil</string>
        </property>
@@ -175,6 +295,21 @@
      </item>
      <item row="9" column="1">
       <widget class="QPushButton" name="btnGoster">
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    background-color: #10b981;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 12px;
+}
+
+QPushButton:hover {
+    background-color: #059669;
+}
+</string>
+       </property>
        <property name="text">
         <string>Göster</string>
        </property>
@@ -182,6 +317,16 @@
      </item>
      <item row="10" column="1">
       <widget class="QTextEdit" name="textEditListe">
+       <property name="styleSheet">
+        <string notr="true">QTextEdit {
+    background-color: #1f1f2e;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 6px;
+    padding: 6px;
+}
+</string>
+       </property>
        <property name="readOnly">
         <bool>true</bool>
        </property>
@@ -191,7 +336,8 @@
       <widget class="QLabel" name="labelSorgu">
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <family>Segoe UI</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
@@ -213,7 +359,8 @@
       <widget class="QLabel" name="labelTarih">
        <property name="font">
         <font>
-         <pointsize>12</pointsize>
+         <family>Segoe UI</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
        <property name="text">
@@ -222,7 +369,41 @@
       </widget>
      </item>
      <item row="4" column="1">
-      <widget class="QCalendarWidget" name="calendarWidgetTarih"/>
+      <widget class="QCalendarWidget" name="calendarWidgetTarih">
+       <property name="styleSheet">
+        <string notr="true">QCalendarWidget QToolButton {
+    background-color: #3b82f6;
+    color: white;
+    font-weight: bold;
+    border: none;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+QCalendarWidget QMenu {
+    background-color: #2e2e3e;
+    color: white;
+}
+
+QCalendarWidget QSpinBox {
+    color: white;
+    background: #2e2e3e;
+    border: 1px solid #444;
+}
+
+QCalendarWidget QAbstractItemView:enabled {
+    background-color: #1e1e2f;
+    color: white;
+    selection-background-color: #3b82f6;
+    selection-color: white;
+}
+
+QCalendarWidget QWidget#qt_calendar_navigationbar {
+    background-color: #2e2e3e;
+}
+</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
@@ -237,12 +418,19 @@
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton {
-    background-color: #3498db;
+    background-color: #3b82f6;
     color: white;
-    font-size: 16px;
-    border-radius: 8px;
-    padding: 6px 12px;
-}</string>
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+}
+
+QPushButton:hover {
+    background-color: #2563eb;
+}
+</string>
     </property>
     <property name="text">
      <string>Randevu Ekranı Görüntüle</string>
@@ -255,7 +443,7 @@
      <x>0</x>
      <y>0</y>
      <width>1163</width>
-     <height>25</height>
+     <height>27</height>
     </rect>
    </property>
   </widget>

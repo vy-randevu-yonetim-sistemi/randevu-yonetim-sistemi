@@ -179,3 +179,28 @@ QStack<Randevu> SQLiteManager::stackDepola() const {
    }
    return results;
 }
+
+QList<Randevu> SQLiteManager::randevularByDoktor(const QString &doktorAdi) const {
+   QSqlDatabase db = QSqlDatabase::database(connectionName);
+   QSqlQuery query(db);
+   QList<Randevu> results;
+
+   query.prepare("SELECT * FROM randevular WHERE doktor = :doktor");
+   query.bindValue(":doktor", doktorAdi);
+
+   if (!query.exec()) {
+      qWarning() << "Query by doctor failed:" << query.lastError().text();
+      return results;
+   }
+
+   while (query.next()) {
+      Randevu r;
+      r.ad = query.value("ad").toString();
+      r.tc = query.value("tc").toString();
+      r.tarih = query.value("tarih").toString();
+      r.saat = query.value("saat").toString();
+      r.doktor = query.value("doktor").toString();
+      results.append(r);
+   }
+   return results;
+}
