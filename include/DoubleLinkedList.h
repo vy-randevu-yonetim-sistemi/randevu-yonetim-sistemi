@@ -94,7 +94,7 @@ public:
         return tail->data;
     }
 
-    bool isEmpty() const {
+    [[nodiscard]] bool isEmpty() const {
         return head == nullptr;
     }
 };

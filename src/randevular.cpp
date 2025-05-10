@@ -4,7 +4,6 @@
 #include "randevu.h"
 #include "sqlite.h"
 #include <QDate>
-#include <QTime>
 
 randevular::randevular(QMainWindow* mainWindow, QWidget *parent)
     : QMainWindow(parent), m_mainWindow(mainWindow)

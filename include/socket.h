@@ -1,5 +1,0 @@
-#ifndef VERIYAPILARI_SOCKET_H
-#define VERIYAPILARI_SOCKET_H
-#pragma once
-
-#endif // VERIYAPILARI_SOCKET_H

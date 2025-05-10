@@ -17,8 +17,6 @@ set(PROJECT_SOURCES
         src/mainwindow.cpp
         include/mainwindow.h
         src/mainwindow.ui
-        src/socket.cpp
-        include/socket.h
         src/sqlite.cpp
         include/sqlite.h
         include/randevu.h

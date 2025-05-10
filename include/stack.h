@@ -2,6 +2,7 @@
 #define STACK_H
 
 #include <stdexcept>
+#include <utility>
 #include "randevu.h"
 
 class Stack {
@@ -9,7 +10,7 @@ private:
     struct Node {
         Randevu data;
         Node* next;
-        explicit Node(const Randevu& d) : data(d), next(nullptr) {}
+        explicit Node(Randevu  d) : data(std::move(d)), next(nullptr) {}
     };
 
     Node* topNode;
@@ -19,9 +20,9 @@ public:
     ~Stack();
     void push(const Randevu& item);
     Randevu pop();
-    Randevu top() const;
-    bool isEmpty() const;
-    size_t size() const;
+    [[nodiscard]] Randevu top() const;
+    [[nodiscard]] bool isEmpty() const;
+    [[nodiscard]] size_t size() const;
 };
 
 #endif

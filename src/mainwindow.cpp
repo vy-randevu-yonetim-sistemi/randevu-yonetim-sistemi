@@ -7,7 +7,6 @@
 #include <QStringListModel>
 #include <QDebug>
 #include "QCalendarWidget"
-#include "stack.h"
 #include "DoubleLinkedList.h"
 #include "hashTable.h"
 

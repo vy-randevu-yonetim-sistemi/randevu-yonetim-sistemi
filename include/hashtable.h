@@ -6,6 +6,7 @@
 #include <QString>
 #include <QList>
 #include <QChar>
+#include <utility>
 
         class HashTable {
 
@@ -14,7 +15,7 @@ private:
       QString tc;
       QList<Randevu> randevuListesi;
       Node* next;
-      explicit Node(const QString& tc) : tc(tc), next(nullptr) {}
+      explicit Node(QString  tc) : tc(std::move(tc)), next(nullptr) {}
    };
    QList<Node*> table;
    int size;
@@ -22,8 +23,7 @@ private:
 public:
    HashTable() : size(7919), table(7919, nullptr) {}
    ~HashTable(){
-      for (int i = 0 ; i < table.size() ; i++) {
-         Node* node = table[i];
+      for (auto node : table) {
          while (node != nullptr) {
             Node* temp = node;
             node = node->next;
@@ -32,7 +32,7 @@ public:
       }
    }
 
-   int hashFunction(const QString tc)const {
+   [[nodiscard]] int hashFunction(const QString& tc)const {
       int hash = 0;
       for(const QChar& ch : tc)
       {
@@ -53,7 +53,7 @@ public:
       }
    }
 
-   QList<Randevu> search(const QString& tc) const {
+   [[nodiscard]] QList<Randevu> search(const QString& tc) const {
       int index = hashFunction(tc);
       if (!table[index] || table[index]->tc != tc) {
          return {};

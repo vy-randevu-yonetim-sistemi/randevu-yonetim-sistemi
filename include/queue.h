@@ -52,7 +52,7 @@ public:
       return frontNode->data;
    }
 
-   bool isEmpty() const {
+   [[nodiscard]] bool isEmpty() const {
       return frontNode == nullptr;
    }
 

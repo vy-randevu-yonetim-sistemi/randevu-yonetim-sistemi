@@ -14,7 +14,7 @@ class randevular : public QMainWindow {
 
 public:
    explicit randevular(QMainWindow* mainWindow, QWidget *parent = nullptr);
-   ~randevular();
+   ~randevular() override;
 
 
 private:
