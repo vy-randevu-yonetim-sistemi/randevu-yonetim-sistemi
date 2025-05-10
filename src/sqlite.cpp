@@ -201,7 +201,7 @@ QList<Randevu> SQLiteManager::doktorRandevular(const QString &doktorAdi) const {
    query.bindValue(":doktor", doktorAdi);
 
    if (!query.exec()) {
-      qWarning() << "Query başarısız oldu.:" << query.lastError().text();
+      qWarning() << "Query başarısız oldu:" << query.lastError().text();
       return results;
    }
 
