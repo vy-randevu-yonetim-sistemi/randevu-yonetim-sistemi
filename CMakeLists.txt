@@ -22,7 +22,7 @@ set(PROJECT_SOURCES
         src/sqlite.cpp
         include/sqlite.h
         include/randevu.h
-        include/queue.h
+
         include/heap.h
         src/randevular.cpp
         src/randevular.ui
@@ -36,6 +36,7 @@ if (${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(VeriYapilari
             MANUAL_FINALIZATION
             ${PROJECT_SOURCES}
+            include/queue.h
 
 
     )
