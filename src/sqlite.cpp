@@ -180,7 +180,7 @@ QStack<Randevu> SQLiteManager::stackDepola() const {
    return results;
 }
 
-QList<Randevu> SQLiteManager::randevularByDoktor(const QString &doktorAdi) const {
+QList<Randevu> SQLiteManager::doktorRandevular(const QString &doktorAdi) const {
    QSqlDatabase db = QSqlDatabase::database(connectionName);
    QSqlQuery query(db);
    QList<Randevu> results;

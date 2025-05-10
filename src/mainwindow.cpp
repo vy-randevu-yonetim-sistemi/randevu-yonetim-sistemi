@@ -43,7 +43,7 @@ void MainWindow::sayfaGec() {
 
 QString MainWindow::tarihSec() {
    QDate tarih = ui->calendarWidgetTarih->selectedDate();
-   QString strTarih = tarih.toString();
+   QString strTarih = tarih.toString(Qt::ISODate);
    return strTarih;
 }
 
@@ -88,7 +88,7 @@ void MainWindow::randevuEkle() {
    ui->lineEditTC->clear();
 }
 
-void MainWindow::sonrakiRandevu() {
+[[maybe_unused]] void MainWindow::sonrakiRandevu() {
    if (bekleyenRandevular.isEmpty()) {
       QMessageBox::information(this, "Bekleyen Randevu Yok", "Şu anda bekleyen randevu yok.");
       return;
@@ -172,7 +172,8 @@ void MainWindow::randevuSil() {
    Randevu r;
    r.ad = bilgiler[0];
    r.tc = bilgiler[1];
-   r.tarih = bilgiler[2];
+   QDate date = QDate::fromString(bilgiler[2], QLocale().dateFormat());
+   r.tarih = date.toString(Qt::ISODate);
    r.saat = bilgiler[3];
    r.doktor = bilgiler[4];
 

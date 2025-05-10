@@ -2,8 +2,6 @@
 #define VERIYAPILARI_RANDEVU_H
 #pragma once
 
-#include "randevu.h"
-
 #include <QString>
 #include <QMainWindow>
 

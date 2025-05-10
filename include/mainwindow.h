@@ -35,7 +35,7 @@ private:
 
     void randevuEkle();
 
-    void sonrakiRandevu();
+    [[maybe_unused]] void sonrakiRandevu();
 
     void randevuSil();
 

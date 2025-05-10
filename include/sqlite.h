@@ -23,7 +23,7 @@ public:
 
     [[nodiscard]] QList<Randevu> randevuTC(const QString &tc) const;
 
-    [[nodiscard]] QList<Randevu> randevularByDoktor(const QString &doktorAdi) const;
+    [[nodiscard]] QList<Randevu> doktorRandevular(const QString &doktorAdi) const;
 
     bool randevuSil(const Randevu &data);
 

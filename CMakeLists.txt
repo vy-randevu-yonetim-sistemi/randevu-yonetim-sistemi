@@ -20,7 +20,6 @@ set(PROJECT_SOURCES
         src/sqlite.cpp
         include/sqlite.h
         include/randevu.h
-        include/heap.h
         src/randevular.cpp
         src/randevular.ui
         include/randevular.h

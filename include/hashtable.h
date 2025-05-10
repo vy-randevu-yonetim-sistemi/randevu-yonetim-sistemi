@@ -1,12 +1,14 @@
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 
-#include <stdexcept>
 #include "randevu.h"
+
+#include <stdexcept>
+#include <utility>
+
 #include <QString>
 #include <QList>
 #include <QChar>
-#include <utility>
 
 class HashTable {
 

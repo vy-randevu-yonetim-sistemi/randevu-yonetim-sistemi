@@ -52,8 +52,8 @@ void randevular::randevuGoster() {
    QList<Randevu> randevular = SQLiteManager::instance().randevular();
 
    std::sort(randevular.begin(), randevular.end(), [](const Randevu &a, const Randevu &b) {
-       QDate dateA = QDate::fromString(a.tarih, "ddd MMM d yyyy");
-       QDate dateB = QDate::fromString(b.tarih, "ddd MMM d yyyy");
+       QDate dateA = QDate::fromString(a.tarih, Qt::ISODate);
+       QDate dateB = QDate::fromString(b.tarih, Qt::ISODate);
 
        if (dateA == dateB) {
           QTime timeA = QTime::fromString(a.saat, "HH:mm");
@@ -77,7 +77,7 @@ void randevular::randevuGoster() {
 
 
 void randevular::hastaListele(const QString &doktorAdi) {
-   QList<Randevu> hastalar = SQLiteManager::instance().randevularByDoktor(doktorAdi);
+   QList<Randevu> hastalar = SQLiteManager::instance().doktorRandevular(doktorAdi);
 
    ui->textEdit->clear();
    for (const Randevu &r: hastalar) {
