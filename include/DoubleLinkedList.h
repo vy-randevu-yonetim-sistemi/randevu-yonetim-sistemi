@@ -5,7 +5,7 @@
 
 template<typename T>
 class DoubleLinkedList {
-private:
+public:
     struct Node {
         T data;
         Node* prev;
@@ -96,6 +96,13 @@ public:
 
     bool isEmpty() const {
         return head == nullptr;
+    }
+    Node* getHead() const {
+       return head;
+    }
+
+    Node* getTail() const {
+       return tail;
     }
 };
 

@@ -103,7 +103,7 @@ QPushButton:hover {
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="btnOncekiRandevu">
        <property name="styleSheet">
         <string notr="true">QPushButton {
     background-color: #3b82f6;

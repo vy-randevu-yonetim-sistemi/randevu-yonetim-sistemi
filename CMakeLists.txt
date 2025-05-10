@@ -34,7 +34,13 @@ set(PROJECT_SOURCES
 
 
 if (${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(VeriYapilari
+
+target_sources(VeriYapilari
+  PRIVATE
+    include/doktor.h
+    src/doktor.cpp
+)
+qt_add_executable(VeriYapilari
             MANUAL_FINALIZATION
             ${PROJECT_SOURCES}
     )

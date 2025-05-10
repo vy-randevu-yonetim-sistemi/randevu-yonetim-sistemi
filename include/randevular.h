@@ -1,9 +1,11 @@
-#ifndef RANDEVULAR_H
+z#ifndef RANDEVULAR_H
 #define RANDEVULAR_H
 
 #include <QMainWindow>
 #include "QQueue"
 #include "randevu.h"
+#include "DoubleLinkedList.h"
+#include "doktor.h"
 
 namespace Ui {
    class randevular;
@@ -24,6 +26,9 @@ private:
 
    QMainWindow* m_mainWindow;
 
+   DoubleLinkedList<Doktor> doktorListesi;
+   DoubleLinkedList<Doktor>::Node* aktifDoktor = nullptr;
+
    void hastaListele(const QString &doktorAdi);
 
    void geriSayfaGec();
@@ -34,5 +39,7 @@ private:
 
 
 };
+
+
 
 #endif// RANDEVULAR_H

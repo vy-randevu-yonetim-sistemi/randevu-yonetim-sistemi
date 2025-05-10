@@ -228,3 +228,5 @@ void MainWindow::stackGoster() {
       QMessageBox::warning(this, "Stack Hatası", e.what());
    }
 }
+
+
