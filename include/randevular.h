@@ -18,7 +18,6 @@ public:
 
     ~randevular() override;
 
-
 private:
     Ui::randevular *ui;
 

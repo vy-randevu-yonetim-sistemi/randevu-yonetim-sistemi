@@ -27,6 +27,7 @@ public:
 
     bool randevuSil(const Randevu &data);
 
+    bool veritabaniSil();
 
     SQLiteManager(const SQLiteManager &) = delete;
 
@@ -37,7 +38,7 @@ private:
 
     ~SQLiteManager();
 
-    bool ensureTableExists();
+    bool tabloKontrol();
 
     QString dbPath;
     QString connectionName;

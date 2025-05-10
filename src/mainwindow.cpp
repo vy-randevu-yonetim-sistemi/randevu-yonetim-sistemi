@@ -25,6 +25,8 @@ MainWindow::MainWindow(QWidget *parent)
    connect(ui->btnSil, &QPushButton::clicked, this, &MainWindow::stacktenCikar);
    //connect(ui->btnStackGoster, &QPushButton::clicked, this, &MainWindow::stackGoster);
 
+   ui->calendarWidgetTarih->setMinimumDate(QDate::currentDate());
+
    if (!SQLiteManager::instance().openDatabase()) {
       QMessageBox::critical(this, "Veritabanı Hatası", "Veritabanı açılamadı!");
    }
@@ -43,6 +45,10 @@ void MainWindow::sayfaGec() {
 
 QString MainWindow::tarihSec() {
    QDate tarih = ui->calendarWidgetTarih->selectedDate();
+   if (!tarih.isValid()) {
+      QMessageBox::warning(this, "Hatalı Tarih", "Lütfen geçerli bir tarih seçin.");
+      return {};
+   }
    QString strTarih = tarih.toString(Qt::ISODate);
    return strTarih;
 }

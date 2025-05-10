@@ -1,8 +1,9 @@
 #include "randevular.h"
 #include "ui_randevular.h"
-#include "QMessageBox"
-#include "randevu.h"
 #include "sqlite.h"
+#include "randevu.h"
+
+#include <QMessageBox>
 #include <QDate>
 
 randevular::randevular(QMainWindow *mainWindow, QWidget *parent)
@@ -16,11 +17,9 @@ randevular::randevular(QMainWindow *mainWindow, QWidget *parent)
    connect(ui->comboBoxDoktor, &QComboBox::currentTextChanged, this, &randevular::hastaListele);
 }
 
-
 randevular::~randevular() {
    delete ui;
 }
-
 
 void randevular::geriSayfaGec() {
    this->hide();
@@ -45,11 +44,11 @@ void randevular::sonrakiRandevu() {
    QMessageBox::information(this, "Sonraki Randevu", info);
 }
 
-
 void randevular::randevuGoster() {
    ui->tableWidget->setRowCount(0);
 
    QList<Randevu> randevular = SQLiteManager::instance().randevular();
+   qDebug() << "Toplam randevu:" << randevular.size();
 
    std::sort(randevular.begin(), randevular.end(), [](const Randevu &a, const Randevu &b) {
        QDate dateA = QDate::fromString(a.tarih, Qt::ISODate);
@@ -75,9 +74,9 @@ void randevular::randevuGoster() {
    }
 }
 
-
 void randevular::hastaListele(const QString &doktorAdi) {
    QList<Randevu> hastalar = SQLiteManager::instance().doktorRandevular(doktorAdi);
+   qDebug() << "Doktor:" << doktorAdi << "- Hasta sayısı:" << hastalar.size();
 
    ui->textEdit->clear();
    for (const Randevu &r: hastalar) {

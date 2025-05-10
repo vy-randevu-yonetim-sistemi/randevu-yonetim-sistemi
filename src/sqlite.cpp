@@ -36,10 +36,10 @@ bool SQLiteManager::openDatabase(const QString &path) {
       return false;
    }
 
-   return ensureTableExists();
+   return tabloKontrol();
 }
 
-bool SQLiteManager::ensureTableExists() {
+bool SQLiteManager::tabloKontrol() {
    QSqlDatabase db = QSqlDatabase::database(connectionName);
    QSqlQuery query(db);
 
@@ -78,7 +78,7 @@ bool SQLiteManager::randevuEkle(const Randevu &r) {
    query.bindValue(":doktor", r.doktor);
 
    if (!query.exec()) {
-      qWarning() << "Insert failed:" << query.lastError().text();
+      qWarning() << "Ekleme işlemi başarısız oldu:" << query.lastError().text();
       return false;
    }
 
@@ -91,7 +91,7 @@ QList<Randevu> SQLiteManager::randevular() const {
    QList<Randevu> results;
 
    if (!query.exec("SELECT * FROM randevular")) {
-      qWarning() << "Query failed:" << query.lastError().text();
+      qWarning() << "Query başarısız oldu:" << query.lastError().text();
       return results;
    }
 
@@ -158,13 +158,25 @@ bool SQLiteManager::randevuSil(const Randevu &r) {
    return query.numRowsAffected() > 0;
 }
 
+bool SQLiteManager::veritabaniSil() {
+   QSqlDatabase db = QSqlDatabase::database(connectionName);
+   QSqlQuery query(db);
+
+   if (!query.exec("DROP TABLE IF EXISTS randevular")) {
+      qCritical() << "Tablo silinemedi:" << query.lastError().text();
+      return false;
+   }
+
+   return tabloKontrol();
+}
+
 QStack<Randevu> SQLiteManager::stackDepola() const {
    QSqlDatabase db = QSqlDatabase::database(connectionName);
    QSqlQuery query(db);
    QStack<Randevu> results;
 
    if (!query.exec("SELECT * FROM randevular")) {
-      qWarning() << "Upload failed:" << query.lastError().text();
+      qWarning() << "Veritabanına yükleme sırasında hata oluştu:" << query.lastError().text();
       return results;
    }
 
@@ -189,7 +201,7 @@ QList<Randevu> SQLiteManager::doktorRandevular(const QString &doktorAdi) const {
    query.bindValue(":doktor", doktorAdi);
 
    if (!query.exec()) {
-      qWarning() << "Query by doctor failed:" << query.lastError().text();
+      qWarning() << "Query başarısız oldu.:" << query.lastError().text();
       return results;
    }
 
