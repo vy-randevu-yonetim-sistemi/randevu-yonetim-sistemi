@@ -178,7 +178,7 @@ void MainWindow::randevuSil() {
    Randevu r;
    r.ad = bilgiler[0];
    r.tc = bilgiler[1];
-   QDate date = QDate::fromString(bilgiler[2], QLocale().dateFormat());
+   QDate date = QDate::fromString(bilgiler[2], "dd.MM.yyyy"); // Adjust format as per expected input
    r.tarih = date.toString(Qt::ISODate);
    r.saat = bilgiler[3];
    r.doktor = bilgiler[4];
