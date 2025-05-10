@@ -11,9 +11,9 @@ randevular::randevular(QMainWindow *mainWindow, QWidget *parent)
    ui = new Ui::randevular;
    ui->setupUi(this);
 
-   connect(ui->btnAnaSayfa, &QPushButton::clicked, this, &randevular::geriSayfaGec);
+   connect(ui->btnAnaSayfa, &QPushButton::clicked, this, &randevular::randevuGoster);
    connect(ui->btnSonrakiRandevu, &QPushButton::clicked, this, &randevular::sonrakiRandevu);
-   connect(ui->pushButton_3, &QPushButton::clicked, this, &randevular::randevuGoster);
+   connect(ui->pushButton_3, &QPushButton::clicked, this, &randevular::geriSayfaGec);
    connect(ui->comboBoxDoktor, &QComboBox::currentTextChanged, this, &randevular::hastaListele);
 }
 
