@@ -5,13 +5,12 @@
 #include "sqlite.h"
 #include <QDate>
 
-randevular::randevular(QMainWindow* mainWindow, QWidget *parent)
-    : QMainWindow(parent), m_mainWindow(mainWindow)
-{
+randevular::randevular(QMainWindow *mainWindow, QWidget *parent)
+        : QMainWindow(parent), m_mainWindow(mainWindow) {
    ui = new Ui::randevular;
    ui->setupUi(this);
 
-   connect(ui->btnAnaSayfa , &QPushButton::clicked , this , &randevular::geriSayfaGec);
+   connect(ui->btnAnaSayfa, &QPushButton::clicked, this, &randevular::geriSayfaGec);
    connect(ui->btnSonrakiRandevu, &QPushButton::clicked, this, &randevular::sonrakiRandevu);
    connect(ui->pushButton_3, &QPushButton::clicked, this, &randevular::randevuGoster);
    connect(ui->comboBoxDoktor, &QComboBox::currentTextChanged, this, &randevular::hastaListele);
@@ -23,7 +22,7 @@ randevular::~randevular() {
 }
 
 
-void randevular::geriSayfaGec(){
+void randevular::geriSayfaGec() {
    this->hide();
    if (m_mainWindow) m_mainWindow->show();
 }
@@ -41,34 +40,32 @@ void randevular::sonrakiRandevu() {
                           "Tarih: %3\n"
                           "Saat: %4\n"
                           "Doktor: %5")
-                          .arg(r.ad, r.tc, r.tarih, r.saat, r.doktor);
+           .arg(r.ad, r.tc, r.tarih, r.saat, r.doktor);
 
    QMessageBox::information(this, "Sonraki Randevu", info);
 }
 
 
-void randevular::randevuGoster()
-{
+void randevular::randevuGoster() {
    ui->tableWidget->setRowCount(0);
 
    QList<Randevu> randevular = SQLiteManager::instance().randevular();
 
-   std::sort(randevular.begin(), randevular.end(), [](const Randevu& a, const Randevu& b) {
-      QDate dateA = QDate::fromString(a.tarih, "ddd MMM d yyyy");
-      QDate dateB = QDate::fromString(b.tarih, "ddd MMM d yyyy");
+   std::sort(randevular.begin(), randevular.end(), [](const Randevu &a, const Randevu &b) {
+       QDate dateA = QDate::fromString(a.tarih, "ddd MMM d yyyy");
+       QDate dateB = QDate::fromString(b.tarih, "ddd MMM d yyyy");
 
-      if (dateA == dateB) {
-         QTime timeA = QTime::fromString(a.saat, "HH:mm");
-         QTime timeB = QTime::fromString(b.saat, "HH:mm");
-         return timeA < timeB;
-      }
+       if (dateA == dateB) {
+          QTime timeA = QTime::fromString(a.saat, "HH:mm");
+          QTime timeB = QTime::fromString(b.saat, "HH:mm");
+          return timeA < timeB;
+       }
 
-      return dateA < dateB;
+       return dateA < dateB;
    });
 
-   for (int i = 0; i < randevular.size(); ++i)
-   {
-      const Randevu& r = randevular[i];
+   for (int i = 0; i < randevular.size(); ++i) {
+      const Randevu &r = randevular[i];
 
       ui->tableWidget->insertRow(i);
       ui->tableWidget->setItem(i, 0, new QTableWidgetItem(r.doktor));
@@ -79,12 +76,11 @@ void randevular::randevuGoster()
 }
 
 
-void randevular::hastaListele(const QString &doktorAdi)
-{
+void randevular::hastaListele(const QString &doktorAdi) {
    QList<Randevu> hastalar = SQLiteManager::instance().randevularByDoktor(doktorAdi);
 
    ui->textEdit->clear();
-   for (const Randevu& r : hastalar) {
-      ui->textEdit->append(r.ad + " - " + r.tc + " - " + r.tarih + " " + r.saat+ " " + r.doktor);
+   for (const Randevu &r: hastalar) {
+      ui->textEdit->append(r.ad + " - " + r.tc + " - " + r.tarih + " " + r.saat + " " + r.doktor);
    }
 }

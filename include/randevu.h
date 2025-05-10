@@ -1,9 +1,12 @@
 #ifndef VERIYAPILARI_RANDEVU_H
 #define VERIYAPILARI_RANDEVU_H
 #pragma once
-#include <QString>
+
 #include "randevu.h"
+
+#include <QString>
 #include <QMainWindow>
+
 struct Randevu {
     QString ad;
     QString tc;
@@ -11,7 +14,7 @@ struct Randevu {
     QString saat;
     QString doktor;
 
-    bool operator<(const Randevu& other) const {
+    bool operator<(const Randevu &other) const {
        if (tarih == other.tarih)
           return saat < other.saat;
        return tarih < other.tarih;

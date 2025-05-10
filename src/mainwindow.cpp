@@ -11,7 +11,7 @@
 #include "hashTable.h"
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow) {
+        : QMainWindow(parent), ui(new Ui::MainWindow) {
    ui->setupUi(this);
    randevular_form = new randevular(this);
 
@@ -19,8 +19,8 @@ MainWindow::MainWindow(QWidget *parent)
    connect(ui->btnSil, &QPushButton::clicked, this, &MainWindow::randevuSil);
    connect(ui->btnGoster, &QPushButton::clicked, this, &MainWindow::randevuGoster);
    connect(ui->btnSorgu, &QPushButton::clicked, this, &MainWindow::randevuSorgula);
-   connect(ui->calendarWidgetTarih, &QCalendarWidget::selectionChanged,this, &MainWindow::tarihSec);
-   connect(ui->btnRandevularSayfa , &QPushButton::clicked , this , &MainWindow::sayfaGec);
+   connect(ui->calendarWidgetTarih, &QCalendarWidget::selectionChanged, this, &MainWindow::tarihSec);
+   connect(ui->btnRandevularSayfa, &QPushButton::clicked, this, &MainWindow::sayfaGec);
    //connect(ui->btnEkle, &QPushButton::clicked, this, &MainWindow::stackEkle);
    connect(ui->btnSil, &QPushButton::clicked, this, &MainWindow::stacktenCikar);
    //connect(ui->btnStackGoster, &QPushButton::clicked, this, &MainWindow::stackGoster);
@@ -36,17 +36,17 @@ MainWindow::~MainWindow() {
    delete ui;
 }
 
-void MainWindow::sayfaGec(){
+void MainWindow::sayfaGec() {
    randevular_form->show();
    this->hide();
 }
 
-QString MainWindow::tarihSec()
-{
+QString MainWindow::tarihSec() {
    QDate tarih = ui->calendarWidgetTarih->selectedDate();
    QString strTarih = tarih.toString();
    return strTarih;
 }
+
 void MainWindow::randevuEkle() {
    Randevu r;
    r.ad = ui->lineEditAd->text().trimmed();
@@ -60,14 +60,14 @@ void MainWindow::randevuEkle() {
       return;
    }
 
-   if(ui->lineEditTC->text().length()!=11){
+   if (ui->lineEditTC->text().length() != 11) {
       QMessageBox::warning(this, "Hatalı Giriş", "Lütfen TC kimlik numaranızı 11 haneli olarak girin.");
       return;
    }
 
-   for(QChar c : ui->lineEditTC->text()){
-      if(!c.isDigit()){
-         QMessageBox::warning(this,"Hatalı Giirş","TC ifadesi sadece sayı karakterlerinden oluşmalı.");
+   for (QChar c: ui->lineEditTC->text()) {
+      if (!c.isDigit()) {
+         QMessageBox::warning(this, "Hatalı Giirş", "TC ifadesi sadece sayı karakterlerinden oluşmalı.");
          return;
       }
    }
@@ -101,7 +101,7 @@ void MainWindow::sonrakiRandevu() {
                           "Tarih: %3\n"
                           "Saat: %4\n"
                           "Doktor: %5")
-                          .arg(r.ad, r.tc, r.tarih, r.saat, r.doktor);
+           .arg(r.ad, r.tc, r.tarih, r.saat, r.doktor);
 
    QMessageBox::information(this, "Sonraki Randevu", info);
 }
@@ -114,7 +114,7 @@ void MainWindow::randevuGoster() {
    QStringList randevuListe;
    for (const Randevu &r: randevular) {
       QString line = QString("%1 - %2 - %3 - %4 - %5")
-      .arg(r.ad, r.tc, r.tarih, r.saat, r.doktor);
+              .arg(r.ad, r.tc, r.tarih, r.saat, r.doktor);
       randevuListe.append(line);
    }
 
@@ -134,7 +134,7 @@ void MainWindow::randevuSorgula() {
 
    QList<Randevu> randevular = SQLiteManager::instance().randevuTC(tc);
 
-   for(const Randevu& r : randevular){
+   for (const Randevu &r: randevular) {
       tablo.add(r);
    }
 
@@ -143,11 +143,10 @@ void MainWindow::randevuSorgula() {
    if (sonuc.isEmpty()) {
       QMessageBox::warning(this, "Sonuç Bulunamadı", "Veritabanında bu TC ile ilgili randevu bulunamadı.");
       return;
-   }
-   else{
-      for(const Randevu& r : sonuc){
+   } else {
+      for (const Randevu &r: sonuc) {
          QString line = QString("Hasta Adı: %1\nTC No: %2\nTarih: %3\nSaat: %4\nDoktor: %5\n-----------")
-                                .arg(r.ad, r.tc, r.tarih, r.saat, r.doktor);
+                 .arg(r.ad, r.tc, r.tarih, r.saat, r.doktor);
          randevuListe.append(line);
       }
    }
@@ -211,7 +210,7 @@ void MainWindow::stacktenCikar() {
                                 "\nRandevu Tarihi: " + r.tarih +
                                 "\nRandevu Saati: " + r.saat +
                                 "\nDoktor: " + r.doktor);
-   } catch (const std::runtime_error& e) {
+   } catch (const std::runtime_error &e) {
       QMessageBox::warning(this, "Stack Hatası", e.what());
    }
 }
@@ -221,9 +220,9 @@ void MainWindow::stackGoster() {
       Randevu r = randevuStack.top();
       QString info = QString("Stack'in En Üstündeki Randevu:\n"
                              "Ad: %1\nTC: %2\nTarih: %3\nSaat: %4\nDoktor: %5")
-                             .arg(r.ad, r.tc, r.tarih, r.saat, r.doktor);
+              .arg(r.ad, r.tc, r.tarih, r.saat, r.doktor);
       QMessageBox::information(this, "Stack Görüntüle", info);
-   } catch (const std::runtime_error& e) {
+   } catch (const std::runtime_error &e) {
       QMessageBox::warning(this, "Stack Hatası", e.what());
    }
 }

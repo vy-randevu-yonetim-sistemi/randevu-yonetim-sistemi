@@ -6,61 +6,63 @@
 template<typename T>
 class Queue {
 private:
-   struct Node {
-      T data;
-      Node* next;
-      explicit Node(const T& d) : data(d), next(nullptr) {}
-   };
+    struct Node {
+        T data;
+        Node *next;
 
-   Node* frontNode = nullptr;
-   Node* rearNode = nullptr;
+        explicit Node(const T &d) : data(d), next(nullptr) {}
+    };
+
+    Node *frontNode = nullptr;
+    Node *rearNode = nullptr;
 
 public:
-   Queue() = default;
+    Queue() = default;
 
-   ~Queue() {
-      clear();
-   }
+    ~Queue() {
+       clear();
+    }
 
-   Queue(const Queue&) = delete;
-   Queue& operator=(const Queue&) = delete;
+    Queue(const Queue &) = delete;
 
-   void enqueue(const T& item) {
-      Node* node = new Node(item);
-      if (rearNode)
-         rearNode->next = node;
-      else
-         frontNode = node;
-      rearNode = node;
-   }
+    Queue &operator=(const Queue &) = delete;
 
-   T dequeue() {
-      if (isEmpty())
-         throw std::runtime_error("Queue is empty");
+    void enqueue(const T &item) {
+       Node *node = new Node(item);
+       if (rearNode)
+          rearNode->next = node;
+       else
+          frontNode = node;
+       rearNode = node;
+    }
 
-      Node* node = frontNode;
-      T item = node->data;
-      frontNode = frontNode->next;
-      if (!frontNode) rearNode = nullptr;
-      delete node;
-      return item;
-   }
+    T dequeue() {
+       if (isEmpty())
+          throw std::runtime_error("Queue is empty");
 
-   const T& front() const {
-      if (isEmpty())
-         throw std::runtime_error("Queue is empty");
-      return frontNode->data;
-   }
+       Node *node = frontNode;
+       T item = node->data;
+       frontNode = frontNode->next;
+       if (!frontNode) rearNode = nullptr;
+       delete node;
+       return item;
+    }
 
-   [[nodiscard]] bool isEmpty() const {
-      return frontNode == nullptr;
-   }
+    const T &front() const {
+       if (isEmpty())
+          throw std::runtime_error("Queue is empty");
+       return frontNode->data;
+    }
 
-   void clear() {
-      while (!isEmpty()) {
-         dequeue();
-      }
-   }
+    [[nodiscard]] bool isEmpty() const {
+       return frontNode == nullptr;
+    }
+
+    void clear() {
+       while (!isEmpty()) {
+          dequeue();
+       }
+    }
 };
 
 #endif // VERIYAPILARI_QUEUE_H

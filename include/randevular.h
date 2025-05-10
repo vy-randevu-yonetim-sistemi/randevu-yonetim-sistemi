@@ -1,36 +1,38 @@
 #ifndef RANDEVULAR_H
 #define RANDEVULAR_H
 
-#include <QMainWindow>
-#include "QQueue"
 #include "randevu.h"
 
+#include <QMainWindow>
+#include <QQueue>
+
 namespace Ui {
-   class randevular;
+    class randevular;
 }
 
 class randevular : public QMainWindow {
-   Q_OBJECT
+Q_OBJECT
 
 public:
-   explicit randevular(QMainWindow* mainWindow, QWidget *parent = nullptr);
-   ~randevular() override;
+    explicit randevular(QMainWindow *mainWindow, QWidget *parent = nullptr);
+
+    ~randevular() override;
 
 
 private:
-   Ui::randevular *ui;
+    Ui::randevular *ui;
 
-   QQueue<Randevu> bekleyenRandevular;
+    QQueue<Randevu> bekleyenRandevular;
 
-   QMainWindow* m_mainWindow;
+    QMainWindow *m_mainWindow;
 
-   void hastaListele(const QString &doktorAdi);
+    void hastaListele(const QString &doktorAdi);
 
-   void geriSayfaGec();
+    void geriSayfaGec();
 
-   void sonrakiRandevu();
+    void sonrakiRandevu();
 
-   void randevuGoster();
+    void randevuGoster();
 
 
 };

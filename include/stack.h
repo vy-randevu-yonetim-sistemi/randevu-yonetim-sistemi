@@ -1,27 +1,35 @@
 #ifndef STACK_H
 #define STACK_H
 
+#include "randevu.h"
+
 #include <stdexcept>
 #include <utility>
-#include "randevu.h"
 
 class Stack {
 private:
     struct Node {
         Randevu data;
-        Node* next;
-        explicit Node(Randevu  d) : data(std::move(d)), next(nullptr) {}
+        Node *next;
+
+        explicit Node(Randevu d) : data(std::move(d)), next(nullptr) {}
     };
 
-    Node* topNode;
+    Node *topNode;
 
 public:
     Stack() : topNode(nullptr) {}
+
     ~Stack();
-    void push(const Randevu& item);
+
+    void push(const Randevu &item);
+
     Randevu pop();
+
     [[nodiscard]] Randevu top() const;
+
     [[nodiscard]] bool isEmpty() const;
+
     [[nodiscard]] size_t size() const;
 };
 
