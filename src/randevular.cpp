@@ -72,10 +72,10 @@ void randevular::randevuGoster()
       const Randevu& r = randevular[i];
 
       ui->tableWidget->insertRow(i);
-      ui->tableWidget->setItem(i, 0, new QTableWidgetItem(r.tc));
+      ui->tableWidget->setItem(i, 0, new QTableWidgetItem(r.doktor));
       ui->tableWidget->setItem(i, 1, new QTableWidgetItem(r.ad));
-      ui->tableWidget->setItem(i, 2, new QTableWidgetItem(r.tarih));
-      ui->tableWidget->setItem(i, 3, new QTableWidgetItem(r.saat));
+      ui->tableWidget->setItem(i, 2, new QTableWidgetItem(r.saat));
+      ui->tableWidget->setItem(i, 3, new QTableWidgetItem(r.tarih));
    }
 }
 

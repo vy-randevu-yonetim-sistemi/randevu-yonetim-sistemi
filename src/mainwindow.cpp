@@ -9,6 +9,7 @@
 #include "QCalendarWidget"
 #include "stack.h"
 #include "DoubleLinkedList.h"
+#include "hashTable.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
@@ -123,6 +124,9 @@ void MainWindow::randevuGoster() {
 }
 
 void MainWindow::randevuSorgula() {
+   HashTable tablo;
+   QStringList randevuListe;
+
    QString tc = ui->lineEditSorgu->text().trimmed();
    if (tc.isEmpty()) {
       QMessageBox::warning(this, "Eksik Bilgi", "Lütfen TC numarasını girin.");
@@ -131,11 +135,18 @@ void MainWindow::randevuSorgula() {
 
    QList<Randevu> randevular = SQLiteManager::instance().randevuTC(tc);
 
-   QStringList randevuListe;
-   if (randevular.isEmpty()) {
-      randevuListe.append("Bu TC numarasına ait randevu bulunmamaktadır.");
-   } else {
-      for (const Randevu &r: randevular) {
+   for(const Randevu& r : randevular){
+      tablo.add(r);
+   }
+
+   QList<Randevu> sonuc = tablo.search(tc);
+
+   if (sonuc.isEmpty()) {
+      QMessageBox::warning(this, "Sonuç Bulunamadı", "Veritabanında bu TC ile ilgili randevu bulunamadı.");
+      return;
+   }
+   else{
+      for(const Randevu& r : sonuc){
          QString line = QString("Hasta Adı: %1\nTC No: %2\nTarih: %3\nSaat: %4\nDoktor: %5\n-----------")
                                 .arg(r.ad, r.tc, r.tarih, r.saat, r.doktor);
          randevuListe.append(line);
