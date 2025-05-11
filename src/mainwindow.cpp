@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
 
    connect(ui->btnEkle, &QPushButton::clicked, this, &MainWindow::randevuEkle);
    connect(ui->btnSil, &QPushButton::clicked, this, &MainWindow::randevuSil);
-   connect(ui->btnGoster, &QPushButton::clicked, this, &MainWindow::randevuGoster);
+   connect(ui->btnGoster, &QPushButton::clicked, this, &MainWindow::randevuSorgula);
    connect(ui->btnSorgu, &QPushButton::clicked, this, &MainWindow::randevuSorgula);
    connect(ui->calendarWidgetTarih, &QCalendarWidget::selectionChanged, this, &MainWindow::tarihSec);
    connect(ui->btnRandevularSayfa, &QPushButton::clicked, this, &MainWindow::sayfaGec);
@@ -136,7 +136,7 @@ void MainWindow::randevuSorgula() {
    HashTable tablo;
    QStringList randevuListe;
 
-   QString tc = ui->lineEditSorgu->text().trimmed();
+   QString tc = ui->lineEditTC->text().trimmed();
    if (tc.isEmpty()) {
       QMessageBox::warning(this, "Eksik Bilgi", "Lütfen TC numarasını girin.");
       return;

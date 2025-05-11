@@ -26,7 +26,7 @@ public:
 
     [[nodiscard]] QList<Randevu> doktorRandevular(const QString &doktorAdi) const;
 
-    const DoubleLinkedList<Randevu> &randevuListesi() const;
+    [[nodiscard]] const DoubleLinkedList<Randevu> &randevuListesi() const;
 
     [[nodiscard]] bool randevuVarMi(const QString &tarih, const QString &saat, const QString &doktor) const;
 
