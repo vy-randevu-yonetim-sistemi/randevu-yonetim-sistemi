@@ -15,6 +15,12 @@ struct Randevu {
          return saat < other.saat;
       return tarih < other.tarih;
    }
+
+   bool operator==(const Randevu& other) const {
+      return tc == other.tc &&
+             tarih == other.tarih &&
+             saat == other.saat;
+   }
 };
 
 #endif// VERIYAPILARI_APPOINTMENT_H

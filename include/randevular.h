@@ -3,12 +3,12 @@
 
 #include "appointment.h"
 #include "queue.h"
-
-#include <utility>
-#include <vector>
+#include "stack.h"
 
 #include <QMainWindow>
 #include <QQueue>
+#include <vector>
+#include <utility>
 
 namespace Ui {
    class randevular;
@@ -21,18 +21,24 @@ public:
    explicit randevular(QMainWindow *mainWindow,
                        std::vector<std::pair<QString, Queue<Randevu>>> *kuyruklar,
                        QWidget *parent = nullptr);
-
    ~randevular() override;
 
    Queue<Randevu> *doktorKuyrugunuAl(const QString &doktorAdi);
+
+   [[nodiscard]] bool isAppointmentHandled(const Randevu& r) const;
 
 private:
    std::vector<std::pair<QString, Queue<Randevu>>> *doktorKuyruklari = nullptr;
    QList<Randevu> guncelHastaListesi;
    int guncelHastaIndex = -1;
 
-   Ui::randevular *ui = nullptr;
    QQueue<Randevu> bekleyenRandevular;
+   Stack<Randevu> islenenRandevular;
+
+   Randevu currentPatient;
+   bool activePatient = false;
+
+   Ui::randevular *ui = nullptr;
    QMainWindow *m_mainWindow = nullptr;
 
    void hastaBilgileriniGoster();
@@ -41,8 +47,6 @@ private:
    void sonrakiRandevu();
    void oncekiRandevu();
    void randevuGoster();
-   void oncekiIslem();
-   void sonrakiIslem();
 };
 
-#endif// RANDEVULAR_H
+#endif // RANDEVULAR_H

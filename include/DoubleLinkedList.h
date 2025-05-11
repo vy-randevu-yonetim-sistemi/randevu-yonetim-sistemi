@@ -27,7 +27,7 @@ public:
       }
    }
 
-   void addFront(const T &item) {
+   [[maybe_unused]] void addFront(const T &item) {
       Node *node = new Node(item);
       node->next = head;
       if (head) {
@@ -38,7 +38,7 @@ public:
       head = node;
    }
 
-   void addBack(const T &item) {
+   [[maybe_unused]] void addBack(const T &item) {
       Node *node = new Node(item);
       node->prev = tail;
       if (tail) {
@@ -68,7 +68,7 @@ public:
       return item;
    }
 
-   T removeBack() {
+   [[maybe_unused]] T removeBack() {
       if (isEmpty()) {
          throw std::runtime_error("List is empty");
       }
@@ -87,7 +87,7 @@ public:
       return item;
    }
 
-   T front() const {
+   [[maybe_unused]] T front() const {
       if (isEmpty()) {
          throw std::runtime_error("List is empty");
       }
@@ -109,35 +109,62 @@ public:
       }
    }
 
-   void insertSorted(const T &item) {
-      Node *newNode = new Node(item);
+   void insertSorted(const T& item) {
+      Node* newNode = new Node(item);
 
       if (!head) {
          head = tail = newNode;
          return;
       }
 
-      Node *current = head;
-      while (current) {
-         if (item < current->data) {
-            newNode->next = current;
-            newNode->prev = current->prev;
+      Node* current = head;
+      while (current && !(item < current->data)) {
+         current = current->next;
+      }
 
+      if (!current) {
+         tail->next = newNode;
+         newNode->prev = tail;
+         tail = newNode;
+         return;
+      }
+
+      newNode->next = current;
+      newNode->prev = current->prev;
+
+      if (current->prev) {
+         current->prev->next = newNode;
+      } else {
+         head = newNode;
+      }
+
+      current->prev = newNode;
+   }
+
+   bool removeFirstMatch(const T& item) {
+      Node* current = head;
+
+      while (current) {
+         if (current->data == item) {
             if (current->prev) {
-               current->prev->next = newNode;
+               current->prev->next = current->next;
             } else {
-               head = newNode;
+               head = current->next;
             }
 
-            current->prev = newNode;
-            return;
+            if (current->next) {
+               current->next->prev = current->prev;
+            } else {
+               tail = current->prev;
+            }
+
+            delete current;
+            return true;
          }
          current = current->next;
       }
 
-      tail->next = newNode;
-      newNode->prev = tail;
-      tail = newNode;
+      return false; // Item not found
    }
 
    [[nodiscard]] bool isEmpty() const {

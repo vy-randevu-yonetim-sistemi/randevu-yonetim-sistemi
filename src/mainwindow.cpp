@@ -190,6 +190,11 @@ void MainWindow::randevuSil() {
    r.saat = bilgiler[3];
    r.doktor = bilgiler[4];
 
+   if (randevular_form->isAppointmentHandled(r)) {
+      QMessageBox::warning(this, "İşlem Engellendi", "Bu hasta zaten işlenmiş ve silinemez.");
+      return;
+   }
+
    if (SQLiteManager::instance().randevuSil(r)) {
       QMessageBox::information(this, "Başarılı", "Seçilen randevu silindi.");
       randevuGoster();

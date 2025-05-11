@@ -22,8 +22,8 @@ randevular::randevular(QMainWindow *mainWindow, std::vector<std::pair<QString, Q
    connect(ui->btnUstSonraki, &QPushButton::clicked, this, &randevular::sonrakiRandevu);
 
    // Randevu ekranında sağ alttaki kutunun kontrol butoun
-   connect(ui->btnAltOnceki, &QPushButton::clicked, this, &randevular::oncekiIslem);
-   connect(ui->btnAltSonraki, &QPushButton::clicked, this, &randevular::sonrakiIslem);
+   // connect(ui->btnAltOnceki, &QPushButton::clicked, this, &randevular::oncekiIslem);
+   // connect(ui->btnAltSonraki, &QPushButton::clicked, this, &randevular::sonrakiIslem);
 }
 
 randevular::~randevular() {
@@ -37,10 +37,14 @@ void randevular::oncekiRandevu() {
    }
 }
 
-void randevular::sonrakiIslem() {
-}
-
-void randevular::oncekiIslem() {
+bool randevular::isAppointmentHandled(const Randevu& r) const {
+   Stack<Randevu> temp = islenenRandevular;
+   while (!temp.isEmpty()) {
+      if (temp.pop() == r) {
+         return true;
+      }
+   }
+   return false;
 }
 
 void randevular::geriSayfaGec() {
@@ -55,56 +59,82 @@ void randevular::sonrakiRandevu() {
       return;
    }
 
-   Queue<Randevu> *queue = doktorKuyrugunuAl(doktorAdi);
-   if (!queue || queue->isEmpty()) {
-      QMessageBox::information(this, "Bilgi", "Bu doktor için bekleyen hasta yok.");
+   Queue<Randevu>* queue = doktorKuyrugunuAl(doktorAdi);
+   if (!queue) {
+      QMessageBox::warning(this, "Hata", "Doktor kuyruğu bulunamadı.");
       return;
    }
 
-   Randevu r = queue->dequeue();
+   if (activePatient) {
+      islenenRandevular.push(currentPatient);
+      activePatient = false;
+   }
 
-   QString info = QString("Sıradaki Hasta:\nAd: %1\nTC: %2\nTarih: %3\nSaat: %4\nDoktor: %5")
-                          .arg(r.ad, r.tc, r.tarih, r.saat, r.doktor);
+   if (queue->isEmpty()) {
+      ui->textEdit->setText("Bekleyen hasta kalmadı.");
+   } else {
+      currentPatient = queue->dequeue();
+      activePatient = true;
 
-   ui->textEdit->setText(info);
+      QString info = QString("Sıradaki Hasta:\nAd: %1\nTC: %2\nTarih: %3\nSaat: %4\nDoktor: %5")
+                             .arg(currentPatient.ad, currentPatient.tc, currentPatient.tarih, currentPatient.saat, currentPatient.doktor);
+      ui->textEdit->setText(info);
+   }
+
    ui->textEdit_2->clear();
+   Stack<Randevu> temp = islenenRandevular;
+   while (!temp.isEmpty()) {
+      Randevu r = temp.pop();
+      QString line = QString("Hasta: %1 | Doktor: %2").arg(r.ad, r.doktor);
+      ui->textEdit_2->append(line);
+   }
 }
 
 void randevular::randevuGoster() {
-   ui->tableWidget->setRowCount(0);
-   guncelHastaListesi.clear();
-   guncelHastaIndex = -1;
+   // Reset UI elements
    ui->textEdit->clear();
    ui->textEdit_2->clear();
+   ui->tableWidget->setRowCount(0);
 
+   // Reset internal state
+   guncelHastaListesi.clear();
+   guncelHastaIndex = -1;
+   activePatient = false;
+   currentPatient = Randevu();
+   islenenRandevular = Stack<Randevu>();
+
+   // Get selected doctor
    QString doktorAdi = ui->comboBoxDoktor->currentText().trimmed();
    if (doktorAdi.isEmpty()) {
       QMessageBox::warning(this, "Eksik Bilgi", "Lütfen bir doktor seçin.");
       return;
    }
 
-   const auto &list = SQLiteManager::instance().randevuListesi();
-
-   list.traverse([&](const Randevu &r) {
+   // Traverse and filter appointments from DB
+   const auto& list = SQLiteManager::instance().randevuListesi();
+   list.traverse([&](const Randevu& r) {
       if (r.doktor == doktorAdi) {
          guncelHastaListesi.append(r);
       }
    });
 
-   std::sort(guncelHastaListesi.begin(), guncelHastaListesi.end(), [](const Randevu &a, const Randevu &b) {
+   // Sort by date + time
+   std::sort(guncelHastaListesi.begin(), guncelHastaListesi.end(), [](const Randevu& a, const Randevu& b) {
       QDateTime dtA = QDateTime::fromString(a.tarih + " " + a.saat, "yyyy-MM-dd HH:mm");
       QDateTime dtB = QDateTime::fromString(b.tarih + " " + b.saat, "yyyy-MM-dd HH:mm");
       return dtA < dtB;
    });
 
-   Queue<Randevu> *queue = doktorKuyrugunuAl(doktorAdi);
+   // Refill queue for this doctor
+   Queue<Randevu>* queue = doktorKuyrugunuAl(doktorAdi);
    queue->clear();
-   for (auto &r: guncelHastaListesi) {
+   for (const Randevu& r : guncelHastaListesi) {
       queue->enqueue(r);
    }
 
+   // Populate table view
    for (int i = 0; i < guncelHastaListesi.size(); ++i) {
-      const Randevu &r = guncelHastaListesi[i];
+      const Randevu& r = guncelHastaListesi[i];
       ui->tableWidget->insertRow(i);
       ui->tableWidget->setItem(i, 0, new QTableWidgetItem(r.doktor));
       ui->tableWidget->setItem(i, 1, new QTableWidgetItem(r.ad));
@@ -112,6 +142,7 @@ void randevular::randevuGoster() {
       ui->tableWidget->setItem(i, 3, new QTableWidgetItem(r.tarih));
    }
 
+   // Initialize index for navigation
    if (!guncelHastaListesi.isEmpty()) {
       guncelHastaIndex = 0;
    }

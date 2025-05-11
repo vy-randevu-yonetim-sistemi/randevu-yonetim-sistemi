@@ -166,7 +166,7 @@ bool SQLiteManager::randevuVarMi(const QString &tarih, const QString &saat, cons
    return false;
 }
 
-bool SQLiteManager::randevuSil(const Randevu &r) {
+bool SQLiteManager::randevuSil(const Randevu& r) {
    QSqlDatabase db = QSqlDatabase::database(connectionName);
    QSqlQuery query(db);
 
@@ -187,7 +187,13 @@ bool SQLiteManager::randevuSil(const Randevu &r) {
       return false;
    }
 
-   return query.numRowsAffected() > 0;
+   if (query.numRowsAffected() == 0) {
+      return false;
+   }
+
+   randevularLL.removeFirstMatch(r);
+
+   return true;
 }
 
 void SQLiteManager::veritabaniYukle() {
