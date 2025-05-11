@@ -19,6 +19,10 @@ public:
     ~randevular() override;
 
 private:
+    QList<Randevu> guncelHastaListesi;
+    int guncelHastaIndex = -1;
+    void hastaBilgileriniGoster();
+
     Ui::randevular *ui;
 
     QQueue<Randevu> bekleyenRandevular;
