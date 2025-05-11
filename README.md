@@ -4,6 +4,8 @@
 Yusuf İslam Çelik, Muhammed Celil Ayhan, Recep Kaan Karaman, Ömer Faruk Arı, Yavuz Alp Özgür  
 **Tarih:** 11.05.2025
 
+> Github link: [Klinik Randevu Yönetim Sistemi](https://github.com/vy-randevu-yonetim-sistemi/randevu-yonetim-sistemi)
+
 ---
 
 ## 1. Giriş
