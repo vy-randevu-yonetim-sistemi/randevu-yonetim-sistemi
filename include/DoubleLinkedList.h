@@ -134,6 +134,45 @@ public:
        return tail->data;
     }
 
+    void traverse(const std::function<void(const T &)> &func) const {
+       Node *current = head;
+       while (current != nullptr) {
+          func(current->data);
+          current = current->next;
+       }
+    }
+
+    void sirayaEkle(const T &item) {
+       Node *newNode = new Node(item);
+
+       if (!head) {
+          head = tail = newNode;
+          return;
+       }
+
+       Node *current = head;
+       while (current) {
+          if (item < current->data) {
+             newNode->next = current;
+             newNode->prev = current->prev;
+
+             if (current->prev) {
+                current->prev->next = newNode;
+             } else {
+                head = newNode;
+             }
+
+             current->prev = newNode;
+             return;
+          }
+          current = current->next;
+       }
+
+       tail->next = newNode;
+       newNode->prev = tail;
+       tail = newNode;
+    }
+
     [[nodiscard]] bool isEmpty() const {
        return head == nullptr;
     }
