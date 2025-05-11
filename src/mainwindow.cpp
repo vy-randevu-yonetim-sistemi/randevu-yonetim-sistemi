@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
 
    connect(ui->btnEkle, &QPushButton::clicked, this, &MainWindow::randevuEkle);
    connect(ui->btnSil, &QPushButton::clicked, this, &MainWindow::randevuSil);
-   connect(ui->btnGoster, &QPushButton::clicked, this, &MainWindow::randevuGoster);
+   //connect(ui->btnGoster, &QPushButton::clicked, this, &MainWindow::randevuGoster);
    connect(ui->btnSorgu, &QPushButton::clicked, this, &MainWindow::randevuSorgula);
    connect(ui->calendarWidgetTarih, &QCalendarWidget::selectionChanged, this, &MainWindow::tarihSec);
    connect(ui->btnRandevularSayfa, &QPushButton::clicked, this, &MainWindow::sayfaGec);
@@ -93,7 +93,6 @@ void MainWindow::randevuEkle() {
    } else {
       ui->textEditListe->append("× Kayıt başarısız.");
    }
-   stackEkle();
 
    ui->lineEditAd->clear();
    ui->lineEditTC->clear();
@@ -159,8 +158,8 @@ void MainWindow::randevuSorgula() {
       return;
    } else {
       for (const Randevu &r: sonuc) {
-         QString line = QString("Hasta Adı: %1\nTC No: %2\nTarih: %3\nSaat: %4\nDoktor: %5\n-----------")
-                                .arg(r.ad, r.tc, r.tarih, r.saat, r.doktor);
+         QString line = QString("%1 - %2 - %3 - %4 - %5")
+                                  .arg(r.ad, r.tc, r.tarih, r.saat, r.doktor);
          randevuListe.append(line);
       }
    }
@@ -186,7 +185,7 @@ void MainWindow::randevuSil() {
    Randevu r;
    r.ad = bilgiler[0];
    r.tc = bilgiler[1];
-   QDate date = QDate::fromString(bilgiler[2], "dd.MM.yyyy");// Adjust format as per expected input
+   QDate date = QDate::fromString(bilgiler[2], Qt::ISODate);// Adjust format as per expected input
    r.tarih = date.toString(Qt::ISODate);
    r.saat = bilgiler[3];
    r.doktor = bilgiler[4];
@@ -197,8 +196,6 @@ void MainWindow::randevuSil() {
    } else {
       QMessageBox::warning(this, "Hata", "Silme işlemi başarısız.");
    }
-
-   stacktenCikar();
 }
 
 void MainWindow::stackEkle() {

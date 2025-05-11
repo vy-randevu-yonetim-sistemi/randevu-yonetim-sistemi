@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1163</width>
-    <height>853</height>
+    <height>868</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -26,13 +26,33 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>70</x>
+      <x>60</x>
       <y>0</y>
       <width>457</width>
-      <height>879</height>
+      <height>801</height>
      </rect>
     </property>
     <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="1">
+      <widget class="QLabel" name="label">
+       <property name="font">
+        <font>
+         <family>Segoe UI</family>
+         <pointsize>10</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="layoutDirection">
+        <enum>Qt::LayoutDirection::LeftToRight</enum>
+       </property>
+       <property name="text">
+        <string>RANDEVU ALMA EKRANI</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
      <item row="1" column="0">
       <widget class="QLabel" name="labelAd">
        <property name="font">
@@ -343,7 +363,7 @@ QPushButton:hover {
        </property>
       </widget>
      </item>
-     <item row="7" column="1">
+     <item row="8" column="1">
       <widget class="QPushButton" name="btnSil">
        <property name="styleSheet">
         <string notr="true">QPushButton {
@@ -361,33 +381,11 @@ QPushButton:hover {
 </string>
        </property>
        <property name="text">
-        <string>Randevu Sil</string>
+        <string>Randevu İptal</string>
        </property>
       </widget>
      </item>
-     <item row="8" column="1">
-      <widget class="QPushButton" name="btnGoster">
-       <property name="styleSheet">
-        <string notr="true">QPushButton {
-    background-color: #10b981;
-    color: white;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    padding: 6px 12px;
-}
-
-QPushButton:hover {
-    background-color: #059669;
-}
-</string>
-       </property>
-       <property name="text">
-        <string>Göster</string>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="1">
+     <item row="10" column="1">
       <widget class="QTextEdit" name="textEditListe">
        <property name="styleSheet">
         <string notr="true">QTextEdit {
@@ -404,13 +402,35 @@ QPushButton:hover {
        </property>
       </widget>
      </item>
+     <item row="7" column="1">
+      <widget class="QPushButton" name="btnSorgu">
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    background-color: #10b981;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 12px;
+}
+
+QPushButton:hover {
+    background-color: #059669;
+}
+</string>
+       </property>
+       <property name="text">
+        <string>Randevu Sorgula</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
    <widget class="QPushButton" name="btnRandevularSayfa">
     <property name="geometry">
      <rect>
-      <x>690</x>
-      <y>90</y>
+      <x>940</x>
+      <y>10</y>
       <width>211</width>
       <height>61</height>
      </rect>
@@ -435,24 +455,11 @@ QPushButton:hover {
      <string>Randevu Ekranı Görüntüle</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="btnSorgu">
-    <property name="geometry">
-     <rect>
-      <x>610</x>
-      <y>430</y>
-      <width>371</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Randevu Sorgula</string>
-    </property>
-   </widget>
    <widget class="QListView" name="listViewListe">
     <property name="geometry">
      <rect>
-      <x>570</x>
-      <y>169</y>
+      <x>560</x>
+      <y>340</y>
       <width>455</width>
       <height>251</height>
      </rect>
