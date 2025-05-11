@@ -8,6 +8,9 @@
 #include "DoubleLinkedList.h"
 #include "randevular.h"
 
+#include <vector>
+#include <utility>
+
 #include <QMainWindow>
 #include <QStack>
 
@@ -28,10 +31,13 @@ public:
 private:
     Ui::MainWindow *ui;
     randevular *randevular_form;
+    Queue<Randevu> &kuyrukOlustur(const QString &doktorAdi);
 private:
     Queue<Randevu> bekleyenRandevular;
 
     QStack<Randevu> randevuStack;
+
+    std::vector<std::pair<QString, Queue<Randevu>>> doktorKuyruklari;
 
     void randevuEkle();
 

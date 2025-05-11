@@ -1,13 +1,15 @@
+// clazy:excludeall=connect-non-signal -> Clazy strict modda olduğu için hata veriyor
+// Type casting çalışmadığı için clazy'yi devre dışı bırakıyoruz
 #include "randevular.h"
-#include "ui_randevular.h"
-#include "sqlite.h"
 #include "randevu.h"
+#include "sqlite.h"
+#include "ui_randevular.h"
 
-#include <QMessageBox>
 #include <QDate>
+#include <QMessageBox>
 
-randevular::randevular(QMainWindow *mainWindow, QWidget *parent)
-        : QMainWindow(parent), m_mainWindow(mainWindow) {
+randevular::randevular(QMainWindow *mainWindow, std::vector<std::pair<QString, Queue<Randevu>>> *kuyruklar, QWidget *parent)
+    : QMainWindow(parent), m_mainWindow(mainWindow), doktorKuyruklari(kuyruklar) {
    ui = new Ui::randevular;
    ui->setupUi(this);
 
@@ -15,7 +17,7 @@ randevular::randevular(QMainWindow *mainWindow, QWidget *parent)
    connect(ui->pushButton_3, &QPushButton::clicked, this, &randevular::geriSayfaGec);
    connect(ui->comboBoxDoktor, &QComboBox::currentTextChanged, this, &randevular::hastaListele);
    connect(ui->btnUstSonraki, &QPushButton::clicked, this, &randevular::sonrakiRandevu);
-   connect(ui->btnUstOnceki, &QPushButton::clicked, this, randevular::oncekiRandevu); //fonksiyonlar eklenmiş ama boş, hata veriyor
+   // connect(ui->btnUstOnceki, &QPushButton::clicked, this, randevular::oncekiRandevu); //fonksiyonlar eklenmiş ama boş, hata veriyor
    connect(ui->btnAltSonraki, &QPushButton::clicked, this, &randevular::sonrakiIslem);
    //connect(ui->btnAltOnceki, &QPushButton::clicked, this, randevular::oncekiIslem()); // fonksiyonlar eklenmiş ama boş, hata veriyor
 }
@@ -25,19 +27,17 @@ randevular::~randevular() {
 }
 
 
-void randevular::oncekiRandevu(){
+void randevular::oncekiRandevu() {
    if (!guncelHastaListesi.isEmpty() && guncelHastaIndex > 0) {
       guncelHastaIndex--;
       hastaBilgileriniGoster();
    }
 }
 
-void randevular::sonrakiIslem(){
-
+void randevular::sonrakiIslem() {
 }
 
-void randevular::oncekiIslem(){
-
+void randevular::oncekiIslem() {
 }
 
 void randevular::geriSayfaGec() {
@@ -46,6 +46,7 @@ void randevular::geriSayfaGec() {
 }
 
 void randevular::sonrakiRandevu() {
+   qDebug () << "Sonraki randevu butonuna tıklandı";
    if (!guncelHastaListesi.isEmpty() && guncelHastaIndex < guncelHastaListesi.size() - 1) {
       guncelHastaIndex++;
       hastaBilgileriniGoster();
@@ -56,7 +57,7 @@ void randevular::randevuGoster() {
    ui->tableWidget->setRowCount(0);
    guncelHastaListesi.clear();
    guncelHastaIndex = -1;
-   ui->textEdit->clear(); // Sağdaki detay alanlarını temizle
+   ui->textEdit->clear();// Sağdaki detay alanlarını temizle
    ui->textEdit_2->clear();
 
    QString doktorAdi = ui->comboBoxDoktor->currentText().trimmed();
@@ -105,7 +106,7 @@ void randevular::hastaBilgileriniGoster() {
       const Randevu &hasta = guncelHastaListesi[guncelHastaIndex];
       QString detaylar = QString("Ad: %1\nTC: %2\nTarih: %3\nSaat: %4\nDoktor: %5")
                                  .arg(hasta.ad, hasta.tc, hasta.tarih, hasta.saat, hasta.doktor);
-      ui->textEdit->setText(detaylar); // Veya ui->textEdit_2->setText(detaylar); hangi alanı kullanmak isterseniz
+      ui->textEdit->setText(detaylar);// Veya ui->textEdit_2->setText(detaylar); hangi alanı kullanmak isterseniz
    } else {
       ui->textEdit->clear();
       ui->textEdit_2->clear();
@@ -121,4 +122,3 @@ void randevular::hastaListele(const QString &doktorAdi) {
       ui->textEdit->append(r.ad + " - " + r.tc + " - " + r.tarih + " " + r.saat + " " + r.doktor);
    }
 }
-

@@ -2,6 +2,7 @@
 #define RANDEVULAR_H
 
 #include "randevu.h"
+#include "queue.h"
 
 #include <QMainWindow>
 #include <QQueue>
@@ -14,11 +15,13 @@ class randevular : public QMainWindow {
 Q_OBJECT
 
 public:
-    explicit randevular(QMainWindow *mainWindow, QWidget *parent = nullptr);
+   explicit randevular(QMainWindow *mainWindow, std::vector<std::pair<QString, Queue<Randevu>>> *kuyruklar, QWidget *parent = nullptr);
 
     ~randevular() override;
 
 private:
+   std::vector<std::pair<QString, Queue<Randevu>>> *doktorKuyruklari;
+
     QList<Randevu> guncelHastaListesi;
     int guncelHastaIndex = -1;
     void hastaBilgileriniGoster();

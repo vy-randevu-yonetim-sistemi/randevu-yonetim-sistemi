@@ -1,3 +1,6 @@
+// clazy:excludeall=connect-non-signal -> Clazy strict modda olduğu için hata veriyor
+// Type casting çalışmadığı için clazy'yi devre dışı bırakıyoruz
+
 #include "mainwindow.h"
 #include "hashtable.h"
 #include "randevu.h"
@@ -12,9 +15,10 @@
 #include <QStringListModel>
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow) {
+    : QMainWindow(parent), ui(new Ui::MainWindow),
+      randevular_form(nullptr) {
    ui->setupUi(this);
-   randevular_form = new randevular(this);
+   randevular_form = new randevular(this, &doktorKuyruklari);
 
    connect(ui->btnEkle, &QPushButton::clicked, this, &MainWindow::randevuEkle);
    connect(ui->btnSil, &QPushButton::clicked, this, &MainWindow::randevuSil);
@@ -237,4 +241,15 @@ void MainWindow::stackGoster() {
    } catch (const std::runtime_error &e) {
       QMessageBox::warning(this, "Stack Hatası", e.what());
    }
+}
+
+Queue<Randevu> &MainWindow::kuyrukOlustur(const QString &doktorAdi) {
+   for (auto &pair : doktorKuyruklari) {
+      if (pair.first == doktorAdi) {
+         return pair.second;
+      }
+   }
+
+   doktorKuyruklari.emplace_back(QString(doktorAdi), Queue<Randevu>());
+   return doktorKuyruklari.back().second;
 }
