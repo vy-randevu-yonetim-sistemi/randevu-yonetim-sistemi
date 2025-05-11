@@ -36,6 +36,7 @@ bool SQLiteManager::openDatabase(const QString &path) {
       return false;
    }
 
+   veritabaniYukle();
    return tabloKontrol();
 }
 
@@ -187,6 +188,27 @@ bool SQLiteManager::randevuSil(const Randevu &r) {
    }
 
    return query.numRowsAffected() > 0;
+}
+
+void SQLiteManager::veritabaniYukle() {
+   QSqlDatabase db = QSqlDatabase::database(connectionName);
+   QSqlQuery query(db);
+
+   if (!query.exec("SELECT * FROM randevular")) {
+      qWarning() << "Load failed:" << query.lastError().text();
+      return;
+   }
+
+   while (query.next()) {
+      Randevu r;
+      r.ad = query.value("ad").toString();
+      r.tc = query.value("tc").toString();
+      r.tarih = query.value("tarih").toString();
+      r.saat = query.value("saat").toString();
+      r.doktor = query.value("doktor").toString();
+
+      randevularLL.sirayaEkle(r);
+   }
 }
 
 bool SQLiteManager::veritabaniSil() {

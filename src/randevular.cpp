@@ -15,9 +15,9 @@ randevular::randevular(QMainWindow *mainWindow, QWidget *parent)
    connect(ui->pushButton_3, &QPushButton::clicked, this, &randevular::geriSayfaGec);
    //connect(ui->comboBoxDoktor, &QComboBox::currentTextChanged, this, &randevular::hastaListele);
    connect(ui->btnUstSonraki, &QPushButton::clicked, this, &randevular::sonrakiRandevu);
-   connect(ui->btnUstOnceki, &QPushButton::clicked, this, randevular::oncekiRandevu);
+   // connect(ui->btnUstOnceki, &QPushButton::clicked, this, randevular::oncekiRandevu); fonksiyonlar eklenmiş ama boş, hata veriyor
    connect(ui->btnAltSonraki, &QPushButton::clicked, this, &randevular::sonrakiIslem);
-   connect(ui->btnAltOnceki, &QPushButton::clicked, this, randevular::oncekiIslem);
+   // connect(ui->btnAltOnceki, &QPushButton::clicked, this, randevular::oncekiIslem()); // fonksiyonlar eklenmiş ama boş, hata veriyor
 }
 
 randevular::~randevular() {

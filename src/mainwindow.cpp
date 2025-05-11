@@ -1,11 +1,12 @@
 #include "mainwindow.h"
-#include "DoubleLinkedList.h"
-#include "QCalendarWidget"
-#include "hashTable.h"
+#include "hashtable.h"
 #include "randevu.h"
 #include "randevular.h"
 #include "sqlite.h"
 #include "ui_mainwindow.h"
+#include "DoubleLinkedList.h"
+
+#include <QCalendarWidget>
 #include <QDebug>
 #include <QMessageBox>
 #include <QStringListModel>

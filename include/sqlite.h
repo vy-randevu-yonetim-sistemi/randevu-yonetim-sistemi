@@ -32,6 +32,8 @@ public:
 
     bool randevuSil(const Randevu &data);
 
+    void veritabaniYukle();
+
     bool veritabaniSil();
 
     SQLiteManager(const SQLiteManager &) = delete;
