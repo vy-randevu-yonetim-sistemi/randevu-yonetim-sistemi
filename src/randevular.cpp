@@ -16,16 +16,19 @@ randevular::randevular(QMainWindow *mainWindow, std::vector<std::pair<QString, Q
    connect(ui->btnAnaSayfa, &QPushButton::clicked, this, &randevular::randevuGoster);
    connect(ui->pushButton_3, &QPushButton::clicked, this, &randevular::geriSayfaGec);
    connect(ui->comboBoxDoktor, &QComboBox::currentTextChanged, this, &randevular::hastaListele);
+
+   // Randevu ekranında sağ üstteki kutunun kontrol butonu
+   connect(ui->btnUstOnceki, &QPushButton::clicked, this, &randevular::oncekiRandevu);// Bu buton UI'dan silinecek
    connect(ui->btnUstSonraki, &QPushButton::clicked, this, &randevular::sonrakiRandevu);
-   // connect(ui->btnUstOnceki, &QPushButton::clicked, this, randevular::oncekiRandevu); //fonksiyonlar eklenmiş ama boş, hata veriyor
+
+   // Randevu ekranında sağ alttaki kutunun kontrol butoun
+   connect(ui->btnAltOnceki, &QPushButton::clicked, this, &randevular::oncekiIslem);
    connect(ui->btnAltSonraki, &QPushButton::clicked, this, &randevular::sonrakiIslem);
-   //connect(ui->btnAltOnceki, &QPushButton::clicked, this, randevular::oncekiIslem()); // fonksiyonlar eklenmiş ama boş, hata veriyor
 }
 
 randevular::~randevular() {
    delete ui;
 }
-
 
 void randevular::oncekiRandevu() {
    if (!guncelHastaListesi.isEmpty() && guncelHastaIndex > 0) {
@@ -89,20 +92,14 @@ void randevular::randevuGoster() {
    });
 
    std::sort(guncelHastaListesi.begin(), guncelHastaListesi.end(), [](const Randevu &a, const Randevu &b) {
-      QDate dateA = QDate::fromString(a.tarih, Qt::ISODate);
-      QDate dateB = QDate::fromString(b.tarih, Qt::ISODate);
-
-      if (dateA == dateB) {
-         QTime timeA = QTime::fromString(a.saat, "HH:mm");
-         QTime timeB = QTime::fromString(b.saat, "HH:mm");
-         return timeA < timeB;
-      }
-      return dateA < dateB;
+      QDateTime dtA = QDateTime::fromString(a.tarih + " " + a.saat, "yyyy-MM-dd HH:mm");
+      QDateTime dtB = QDateTime::fromString(b.tarih + " " + b.saat, "yyyy-MM-dd HH:mm");
+      return dtA < dtB;
    });
 
    Queue<Randevu> *queue = doktorKuyrugunuAl(doktorAdi);
    queue->clear();
-   for (const Randevu &r : guncelHastaListesi) {
+   for (auto &r: guncelHastaListesi) {
       queue->enqueue(r);
    }
 
@@ -138,13 +135,13 @@ void randevular::hastaListele(const QString &doktorAdi) {
 
    ui->textEdit->clear();
 
-   for (const Randevu &r : hastalar) {
+   for (const Randevu &r: hastalar) {
       ui->textEdit->append(r.ad + " - " + r.tc + " - " + r.tarih + " " + r.saat + " " + r.doktor);
    }
 }
 
-Queue<Randevu>* randevular::doktorKuyrugunuAl(const QString &doktorAdi) {
-   for (auto &pair : *doktorKuyruklari) {
+Queue<Randevu> *randevular::doktorKuyrugunuAl(const QString &doktorAdi) {
+   for (auto &pair: *doktorKuyruklari) {
       if (pair.first == doktorAdi)
          return &pair.second;
    }

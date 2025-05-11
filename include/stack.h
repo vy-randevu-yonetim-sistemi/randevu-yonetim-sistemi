@@ -8,29 +8,29 @@
 
 class Stack {
 private:
-    struct Node {
-        Randevu data;
-        Node *next;
+   struct Node {
+      Randevu data;
+      Node* next;
 
-        explicit Node(Randevu d) : data(std::move(d)), next(nullptr) {}
-    };
+      explicit Node(Randevu d) : data(std::move(d)), next(nullptr) {}
+   };
 
-    Node *topNode;
+   Node* topNode = nullptr;
+   size_t count = 0;
 
 public:
-    Stack() : topNode(nullptr) {}
+   Stack() = default;
+   ~Stack();
 
-    ~Stack();
+   Stack(const Stack&) = delete;
+   Stack& operator=(const Stack&) = delete;
 
-    void push(const Randevu &item);
+   void push(const Randevu& item);
+   Randevu pop();
 
-    Randevu pop();
-
-    [[nodiscard]] Randevu top() const;
-
-    [[nodiscard]] bool isEmpty() const;
-
-    [[nodiscard]] size_t size() const;
+   [[nodiscard]] const Randevu& top() const;
+   [[nodiscard]] bool isEmpty() const;
+   [[nodiscard]] size_t size() const;
 };
 
-#endif
+#endif // STACK_H

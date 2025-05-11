@@ -7,26 +7,28 @@ Stack::~Stack() {
 }
 
 void Stack::push(const Randevu &item) {
-   Node *newNode = new Node(item);
-   newNode->next = topNode;
-   topNode = newNode;
+   Node *node = new Node(item);
+   node->next = topNode;
+   topNode = node;
+   ++count;
 }
 
 Randevu Stack::pop() {
-   if (isEmpty()) {
-      throw std::runtime_error("Stack boş: pop() işlemi yapılamaz!");
-   }
-   Node *temp = topNode;
-   Randevu poppedData = temp->data;
+   if (isEmpty())
+      throw std::runtime_error("Stack is empty");
+
+   Node *node = topNode;
+   Randevu item = node->data;
    topNode = topNode->next;
-   delete temp;
-   return poppedData;
+   delete node;
+   --count;
+   return item;
 }
 
-Randevu Stack::top() const {
-   if (isEmpty()) {
-      throw std::runtime_error("Stack boş: top() işlemi yapılamaz!");
-   }
+const Randevu &Stack::top() const {
+   if (isEmpty())
+      throw std::runtime_error("Stack is empty");
+
    return topNode->data;
 }
 
@@ -35,11 +37,5 @@ bool Stack::isEmpty() const {
 }
 
 size_t Stack::size() const {
-   size_t count = 0;
-   Node *current = topNode;
-   while (current != nullptr) {
-      count++;
-      current = current->next;
-   }
    return count;
 }

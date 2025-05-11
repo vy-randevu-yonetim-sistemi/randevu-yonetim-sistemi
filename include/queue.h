@@ -1,6 +1,5 @@
 #ifndef VERIYAPILARI_QUEUE_H
 #define VERIYAPILARI_QUEUE_H
-#pragma once
 
 #include <stdexcept>
 
@@ -20,40 +19,49 @@ private:
 
 public:
    Queue() = default;
+   ~Queue() { clear(); }
 
-   ~Queue() {
-      clear();
-   }
+   // Disable copy operations
+   Queue(const Queue &) = delete;
+   Queue &operator=(const Queue &) = delete;
 
+   // Enable move operations
    Queue(Queue &&) noexcept = default;
    Queue &operator=(Queue &&) noexcept = default;
 
    void enqueue(const T &item) {
       Node *node = new Node(item);
-      if (rearNode)
+      if (rearNode) {
          rearNode->next = node;
-      else
+      } else {
          frontNode = node;
+      }
       rearNode = node;
       ++count;
    }
 
    T dequeue() {
-      if (isEmpty())
+      if (isEmpty()) {
          throw std::runtime_error("Queue is empty");
+      }
 
       Node *node = frontNode;
       T item = node->data;
       frontNode = frontNode->next;
-      if (!frontNode) rearNode = nullptr;
+
+      if (!frontNode) {
+         rearNode = nullptr;
+      }
+
       delete node;
       --count;
       return item;
    }
 
    const T &front() const {
-      if (isEmpty())
+      if (isEmpty()) {
          throw std::runtime_error("Queue is empty");
+      }
       return frontNode->data;
    }
 
@@ -74,4 +82,4 @@ public:
    }
 };
 
-#endif // VERIYAPILARI_QUEUE_H
+#endif// VERIYAPILARI_QUEUE_H

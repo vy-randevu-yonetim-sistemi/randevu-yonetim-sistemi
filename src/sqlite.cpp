@@ -64,7 +64,7 @@ bool SQLiteManager::tabloKontrol() {
 }
 
 bool SQLiteManager::randevuEkle(const Randevu &r) {
-   randevularLL.sirayaEkle(r);
+   randevularLL.insertSorted(r);
 
    QSqlDatabase db = QSqlDatabase::database(connectionName);
    QSqlQuery query(db);
@@ -207,7 +207,7 @@ void SQLiteManager::veritabaniYukle() {
       r.saat = query.value("saat").toString();
       r.doktor = query.value("doktor").toString();
 
-      randevularLL.sirayaEkle(r);
+      randevularLL.insertSorted(r);
    }
 }
 

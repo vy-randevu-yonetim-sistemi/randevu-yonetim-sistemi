@@ -3,75 +3,77 @@
 
 #include "randevu.h"
 
+#include <QChar>
+#include <QList>
+#include <QString>
 #include <stdexcept>
 #include <utility>
 
-#include <QString>
-#include <QList>
-#include <QChar>
-
 class HashTable {
-
 private:
-    struct Node {
-        QString tc;
-        QList<Randevu> randevuListesi;
-        Node *next;
+   struct Node {
+      QString tc;
+      QList<Randevu> randevuListesi;
+      Node *next;
 
-        explicit Node(QString tc) : tc(std::move(tc)), next(nullptr) {}
-    };
+      explicit Node(QString tc) : tc(std::move(tc)), next(nullptr) {}
+   };
 
-    QList<Node *> table;
-    int size;
+   QList<Node *> table;
+   int size;
 
 public:
-    HashTable() : size(7919), table(7919, nullptr) {}
+   HashTable() : size(7919), table(7919, nullptr) {}
 
-    ~HashTable() {
-       for (auto node: table) {
-          while (node != nullptr) {
-             Node *temp = node;
-             node = node->next;
-             delete temp;
-          }
-       }
-    }
+   ~HashTable() {
+      for (auto &node: table) {
+         while (node) {
+            Node *temp = node;
+            node = node->next;
+            delete temp;
+         }
+      }
+   }
 
-    [[nodiscard]] int hashFunction(const QString &tc) const {
-       int hash = 0;
-       for (const QChar &ch: tc) {
-          hash = (hash * 104729 + ch.unicode()) % size;
-       }
-       return hash;
-    }
+   [[nodiscard]] int hashFunction(const QString &tc) const {
+      int hash = 0;
+      for (const QChar &ch: tc) {
+         hash = (hash * 104729 + ch.unicode()) % size;
+      }
+      return hash;
+   }
 
-    void add(const Randevu &r) {
-       int index = hashFunction(r.tc);
-       if (!table[index]) {
-          table[index] = new Node(r.tc);
-       }
+   void add(const Randevu &r) {
+      int index = hashFunction(r.tc);
+      Node *current = table[index];
 
-       if (table[index]->tc == r.tc) {
-          table[index]->randevuListesi.append(r);
-          return;
-       }
-    }
+      while (current) {
+         if (current->tc == r.tc) {
+            current->randevuListesi.append(r);
+            return;
+         }
+         current = current->next;
+      }
 
-    [[nodiscard]] QList<Randevu> search(const QString &tc) const {
-       int index = hashFunction(tc);
-       if (!table[index] || table[index]->tc != tc) {
-          return {};
-       } else if (table[index]->randevuListesi.isEmpty()) {
-          throw std::runtime_error("Hash Table is empty");
-       }
+      Node *newNode = new Node(r.tc);
+      newNode->randevuListesi.append(r);
+      newNode->next = table[index];
+      table[index] = newNode;
+   }
 
-       QList<Randevu> result;
+   [[nodiscard]] QList<Randevu> search(const QString &tc) const {
+      int index = hashFunction(tc);
+      Node *current = table[index];
 
-       while (!table[index]->randevuListesi.isEmpty()) {
-          result.append(table[index]->randevuListesi.takeFirst());
-       }
-       return result;
-    }
+      while (current) {
+         if (current->tc == tc) {
+            return current->randevuListesi;
+         }
+         current = current->next;
+      }
+
+      return {};
+   }
 };
 
 #endif// HASHTABLE_H

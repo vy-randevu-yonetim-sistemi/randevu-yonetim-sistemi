@@ -2,15 +2,14 @@
 // Type casting çalışmadığı için clazy'yi devre dışı bırakıyoruz
 
 #include "mainwindow.h"
+#include "DoubleLinkedList.h"
 #include "hashtable.h"
 #include "randevu.h"
 #include "randevular.h"
 #include "sqlite.h"
 #include "ui_mainwindow.h"
-#include "DoubleLinkedList.h"
 
 #include <QCalendarWidget>
-#include <QDebug>
 #include <QMessageBox>
 #include <QStringListModel>
 
@@ -22,7 +21,6 @@ MainWindow::MainWindow(QWidget *parent)
 
    connect(ui->btnEkle, &QPushButton::clicked, this, &MainWindow::randevuEkle);
    connect(ui->btnSil, &QPushButton::clicked, this, &MainWindow::randevuSil);
-   //connect(ui->btnGoster, &QPushButton::clicked, this, &MainWindow::randevuGoster);
    connect(ui->btnSorgu, &QPushButton::clicked, this, &MainWindow::randevuSorgula);
    connect(ui->calendarWidgetTarih, &QCalendarWidget::selectionChanged, this, &MainWindow::tarihSec);
    connect(ui->btnRandevularSayfa, &QPushButton::clicked, this, &MainWindow::sayfaGec);
@@ -77,7 +75,7 @@ void MainWindow::randevuEkle() {
 
    for (QChar c: ui->lineEditTC->text()) {
       if (!c.isDigit()) {
-         QMessageBox::warning(this, "Hatalı Giirş", "TC ifadesi sadece sayı karakterlerinden oluşmalı.");
+         QMessageBox::warning(this, "Hatalı Giriş", "TC ifadesi sadece sayı karakterlerinden oluşmalı.");
          return;
       }
    }
@@ -126,11 +124,10 @@ void MainWindow::randevuGoster() {
 
    QStringList randevuListe;
    for (const Randevu &r: randevular) {
-      if(r.tc == ui->lineEditTC->text().trimmed())
-      {
-      QString line = QString("%1 - %2 - %3 - %4 - %5")
-                             .arg(r.ad, r.tc, r.tarih, r.saat, r.doktor);
-      randevuListe.append(line);
+      if (r.tc == ui->lineEditTC->text().trimmed()) {
+         QString line = QString("%1 - %2 - %3 - %4 - %5")
+                                .arg(r.ad, r.tc, r.tarih, r.saat, r.doktor);
+         randevuListe.append(line);
       }
    }
 
@@ -162,7 +159,7 @@ void MainWindow::randevuSorgula() {
    } else {
       for (const Randevu &r: sonuc) {
          QString line = QString("%1 - %2 - %3 - %4 - %5")
-                                  .arg(r.ad, r.tc, r.tarih, r.saat, r.doktor);
+                                .arg(r.ad, r.tc, r.tarih, r.saat, r.doktor);
          randevuListe.append(line);
       }
    }
@@ -188,7 +185,7 @@ void MainWindow::randevuSil() {
    Randevu r;
    r.ad = bilgiler[0];
    r.tc = bilgiler[1];
-   QDate date = QDate::fromString(bilgiler[2], Qt::ISODate);// Adjust format as per expected input
+   QDate date = QDate::fromString(bilgiler[2], Qt::ISODate);
    r.tarih = date.toString(Qt::ISODate);
    r.saat = bilgiler[3];
    r.doktor = bilgiler[4];
@@ -243,7 +240,7 @@ void MainWindow::stackGoster() {
 }
 
 Queue<Randevu> &MainWindow::kuyrukOlustur(const QString &doktorAdi) {
-   for (auto &pair : doktorKuyruklari) {
+   for (auto &pair: doktorKuyruklari) {
       if (pair.first == doktorAdi) {
          return pair.second;
       }

@@ -4,60 +4,60 @@
 
 #include "queue.h"
 #include "randevu.h"
-#include "stack.h"
-#include "DoubleLinkedList.h"
 #include "randevular.h"
+#include "stack.h"
 
-#include <vector>
 #include <utility>
+#include <vector>
 
 #include <QMainWindow>
 #include <QStack>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
-    class MainWindow;
+   class MainWindow;
 }
 QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow {
-Q_OBJECT
+   Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
+   explicit MainWindow(QWidget *parent = nullptr);
 
-    ~MainWindow() override;
+   ~MainWindow() override;
 
 private:
-    Ui::MainWindow *ui;
-    randevular *randevular_form;
-    Queue<Randevu> &kuyrukOlustur(const QString &doktorAdi);
+   Ui::MainWindow *ui;
+   randevular *randevular_form;
+   Queue<Randevu> &kuyrukOlustur(const QString &doktorAdi);
+
 private:
-    Queue<Randevu> bekleyenRandevular;
+   Queue<Randevu> bekleyenRandevular;
 
-    QStack<Randevu> randevuStack;
+   QStack<Randevu> randevuStack;
 
-    std::vector<std::pair<QString, Queue<Randevu>>> doktorKuyruklari;
+   std::vector<std::pair<QString, Queue<Randevu>>> doktorKuyruklari;
 
-    void randevuEkle();
+   void randevuEkle();
 
-    [[maybe_unused]] void sonrakiRandevu();
+   [[maybe_unused]] void sonrakiRandevu();
 
-    void randevuSil();
+   void randevuSil();
 
-    void randevuGoster();
+   void randevuGoster();
 
-    void randevuSorgula();
+   void randevuSorgula();
 
-    void stackEkle();
+   void stackEkle();
 
-    void stacktenCikar();
+   void stacktenCikar();
 
-    void stackGoster();
+   void stackGoster();
 
-    QString tarihSec();
+   QString tarihSec();
 
-    void sayfaGec();
+   void sayfaGec();
 };
 
 #endif// MAINWINDOW_H
