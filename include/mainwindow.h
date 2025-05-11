@@ -43,7 +43,7 @@ private:
    void randevuSorgula();
    void stackEkle();
    void stacktenCikar();
-   void stackGoster();
+   [[maybe_unused]] void stackGoster();
    void sayfaGec();
    QString tarihSec();
 };

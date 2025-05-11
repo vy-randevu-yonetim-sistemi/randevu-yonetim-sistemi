@@ -94,7 +94,7 @@ public:
       return head->data;
    }
 
-   T back() const {
+   [[maybe_unused]] T back() const {
       if (isEmpty()) {
          throw std::runtime_error("List is empty");
       }
@@ -118,9 +118,17 @@ public:
       }
 
       Node* current = head;
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "Simplify"
+      /**
+       * Aşağıdaki satırdaki && ifadesinin right handside kısmı
+       * sadeleştirilebilir olmasına rağmen >= için operator overloda yapılmadığından
+       * dolayı Clang pragması ile ignore edilmiştir.
+       */
       while (current && !(item < current->data)) {
          current = current->next;
       }
+#pragma clang diagnostic pop
 
       if (!current) {
          tail->next = newNode;

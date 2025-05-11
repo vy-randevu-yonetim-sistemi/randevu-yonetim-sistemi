@@ -80,6 +80,12 @@ void MainWindow::randevuEkle() {
       }
    }
 
+   QList<Randevu> existing = SQLiteManager::instance().randevuTC(r.tc);
+   if (!existing.isEmpty()) {
+      QMessageBox::warning(this, "Çakışan Kayıt", "Bu TC numarasıyla zaten bir randevu kaydı var.");
+      return;
+   }
+
    if (SQLiteManager::instance().randevuVarMi(r.tarih, r.saat, r.doktor)) {
       QMessageBox::warning(this, "Zaman Çakışması", "Bu tarih ve saatte bu doktor için zaten bir randevu var.");
       return;
@@ -203,7 +209,7 @@ void MainWindow::randevuSil() {
    }
 }
 
-void MainWindow::stackEkle() {
+[[maybe_unused]] void MainWindow::stackEkle() {
    Randevu r;
    r.ad = ui->lineEditAd->text().trimmed();
    r.tc = ui->lineEditTC->text().trimmed();
@@ -219,7 +225,7 @@ void MainWindow::stackEkle() {
    randevuStack.push(r);
 }
 
-void MainWindow::stacktenCikar() {
+[[maybe_unused]] void MainWindow::stacktenCikar() {
    try {
       Randevu r = randevuStack.pop();
       ui->textEditListe->append("✗ Stack'ten çıkarıldı:\nHasta Adı: " + r.ad +
@@ -232,7 +238,7 @@ void MainWindow::stacktenCikar() {
    }
 }
 
-void MainWindow::stackGoster() {
+[[maybe_unused]] void MainWindow::stackGoster() {
    try {
       Randevu r = randevuStack.top();
       QString info = QString("Stack'in En Üstündeki Randevu:\n"
@@ -244,7 +250,7 @@ void MainWindow::stackGoster() {
    }
 }
 
-Queue<Randevu> &MainWindow::kuyrukOlustur(const QString &doktorAdi) {
+[[maybe_unused]] Queue<Randevu> &MainWindow::kuyrukOlustur(const QString &doktorAdi) {
    for (auto &pair: doktorKuyruklari) {
       if (pair.first == doktorAdi) {
          return pair.second;
