@@ -4,6 +4,9 @@
 #include "randevu.h"
 #include "queue.h"
 
+#include <vector>
+#include <utility>
+
 #include <QMainWindow>
 #include <QQueue>
 
@@ -16,6 +19,8 @@ Q_OBJECT
 
 public:
    explicit randevular(QMainWindow *mainWindow, std::vector<std::pair<QString, Queue<Randevu>>> *kuyruklar, QWidget *parent = nullptr);
+
+   Queue<Randevu> *doktorKuyrugunuAl(const QString &doktorAdi);
 
     ~randevular() override;
 

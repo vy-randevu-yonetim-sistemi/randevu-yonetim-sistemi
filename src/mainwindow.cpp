@@ -93,7 +93,6 @@ void MainWindow::randevuEkle() {
                                 "\nRandevu Tarihi: " + r.tarih +
                                 "\nRandevu Saati: " + r.saat +
                                 "\nDoktor: " + r.doktor);
-      bekleyenRandevular.enqueue(r);
    } else {
       ui->textEditListe->append("× Kayıt başarısız.");
    }
