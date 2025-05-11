@@ -23,7 +23,6 @@ set(PROJECT_SOURCES
         src/randevular.cpp
         src/randevular.ui
         include/randevular.h
-        src/stack.cpp
         include/stack.h
         include/queue.h
         include/hashtable.h
