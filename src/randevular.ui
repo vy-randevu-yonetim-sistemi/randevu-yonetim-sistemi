@@ -39,8 +39,8 @@
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="3" column="1">
-      <widget class="QPushButton" name="pushButton_5">
+     <item row="1" column="1">
+      <widget class="QPushButton" name="btnUstOnceki">
        <property name="styleSheet">
         <string notr="true">QPushButton {
     background-color: #3b82f6;
@@ -60,29 +60,45 @@ QPushButton:hover {
        </property>
       </widget>
      </item>
-     <item row="1" column="3">
-      <widget class="QPushButton" name="pushButton_3">
+     <item row="0" column="1" colspan="3">
+      <widget class="QTextEdit" name="textEdit">
+       <property name="font">
+        <font>
+         <family>Consolas</family>
+         <pointsize>-1</pointsize>
+        </font>
+       </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton {
-    background-color: #ef4444; /* Kırmızı tonu */
-    color: white;
-    font-weight: bold;
-    border: none;
+        <string notr="true">
+QTextEdit {
+    background-color: #1e1e2f;
+    color: #f8f8f2;
+    font-family: Consolas, Courier, monospace;
+    font-size: 14px;
+    border: 2px solid #5dade2;
     border-radius: 8px;
-    padding: 6px 12px;
-}
-
-QPushButton:hover {
-    background-color: #b91c1c;
+    padding: 8px;
+	width:200px;
+	height:100px;
 }</string>
        </property>
-       <property name="text">
-        <string>Ana Ekrana Dön</string>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+       <property name="html">
+        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Consolas','Courier','monospace'; font-size:14px; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="2">
-      <widget class="QPushButton" name="pushButton_4">
+     <item row="1" column="3">
+      <widget class="QPushButton" name="btnUstSonraki">
        <property name="styleSheet">
         <string notr="true">QPushButton {
     background-color: #10b981; /* Yeşil tonu */
@@ -99,27 +115,6 @@ QPushButton:hover {
        </property>
        <property name="text">
         <string>Sonraki</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QPushButton" name="pushButton">
-       <property name="styleSheet">
-        <string notr="true">QPushButton {
-    background-color: #3b82f6;
-    color: white;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    padding: 6px 12px;
-}
-
-QPushButton:hover {
-    background-color: #2563eb;
-}</string>
-       </property>
-       <property name="text">
-        <string>Önceki</string>
        </property>
       </widget>
      </item>
@@ -222,86 +217,6 @@ QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {
        </column>
       </widget>
      </item>
-     <item row="1" column="2">
-      <widget class="QPushButton" name="btnSonrakiRandevu">
-       <property name="styleSheet">
-        <string notr="true">QPushButton {
-    background-color: #10b981; /* Yeşil tonu */
-    color: white;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    padding: 6px 12px;
-}
-
-QPushButton:hover {
-    background-color: #059669;
-}</string>
-       </property>
-       <property name="text">
-        <string>Sonraki</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1" colspan="3">
-      <widget class="QTextEdit" name="textEdit">
-       <property name="font">
-        <font>
-         <family>Consolas</family>
-         <pointsize>-1</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">
-QTextEdit {
-    background-color: #1e1e2f;
-    color: #f8f8f2;
-    font-family: Consolas, Courier, monospace;
-    font-size: 14px;
-    border: 2px solid #5dade2;
-    border-radius: 8px;
-    padding: 8px;
-	width:200px;
-	height:100px;
-}</string>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-       <property name="html">
-        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-hr { height: 1px; border-width: 0; }
-li.unchecked::marker { content: &quot;\2610&quot;; }
-li.checked::marker { content: &quot;\2612&quot;; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Consolas','Courier','monospace'; font-size:14px; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:14pt;&quot;&gt;Şu andaki mevcut hasta bilgileri burada yer alacak&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Segoe UI'; font-size:14pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="3">
-      <widget class="QPushButton" name="pushButton_6">
-       <property name="styleSheet">
-        <string notr="true">QPushButton {
-    background-color: #ef4444; /* Kırmızı tonu */
-    color: white;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    padding: 6px 12px;
-}
-
-QPushButton:hover {
-    background-color: #b91c1c;
-}</string>
-       </property>
-       <property name="text">
-        <string>Ana Ekrana Dön</string>
-       </property>
-      </widget>
-     </item>
      <item row="2" column="1" colspan="3">
       <widget class="QTextEdit" name="textEdit_2">
        <property name="styleSheet">
@@ -323,16 +238,72 @@ li.checked::marker { content: &quot;\2612&quot;; }
        </property>
       </widget>
      </item>
+     <item row="3" column="1">
+      <widget class="QPushButton" name="btnAltOnceki">
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    background-color: #3b82f6;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 12px;
+}
+
+QPushButton:hover {
+    background-color: #2563eb;
+}</string>
+       </property>
+       <property name="text">
+        <string>Önceki</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="3">
+      <widget class="QPushButton" name="btnAltSonraki">
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+    background-color: #10b981; /* Yeşil tonu */
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 12px;
+}
+
+QPushButton:hover {
+    background-color: #059669;
+}</string>
+       </property>
+       <property name="text">
+        <string>Sonraki</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
    <widget class="QPushButton" name="btnAnaSayfa">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>30</y>
+      <x>100</x>
+      <y>40</y>
       <width>211</width>
       <height>61</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #a16207;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 12px;
+}
+
+QPushButton:hover {
+    background-color: #713f12;
+}</string>
     </property>
     <property name="text">
      <string>Randevuları Listele</string>
@@ -341,8 +312,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
    <widget class="QComboBox" name="comboBoxDoktor">
     <property name="geometry">
      <rect>
-      <x>710</x>
-      <y>70</y>
+      <x>340</x>
+      <y>60</y>
       <width>261</width>
       <height>34</height>
      </rect>
@@ -394,6 +365,33 @@ QComboBox QAbstractItemView {
      </property>
     </item>
    </widget>
+   <widget class="QPushButton" name="pushButton_3">
+    <property name="geometry">
+     <rect>
+      <x>930</x>
+      <y>0</y>
+      <width>191</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: #ef4444; /* Kırmızı tonu */
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 12px;
+}
+
+QPushButton:hover {
+    background-color: #b91c1c;
+}</string>
+    </property>
+    <property name="text">
+     <string>Ana Ekrana Dön</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -401,7 +399,7 @@ QComboBox QAbstractItemView {
      <x>0</x>
      <y>0</y>
      <width>1159</width>
-     <height>37</height>
+     <height>27</height>
     </rect>
    </property>
   </widget>

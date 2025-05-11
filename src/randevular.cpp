@@ -12,13 +12,28 @@ randevular::randevular(QMainWindow *mainWindow, QWidget *parent)
    ui->setupUi(this);
 
    connect(ui->btnAnaSayfa, &QPushButton::clicked, this, &randevular::randevuGoster);
-   connect(ui->btnSonrakiRandevu, &QPushButton::clicked, this, &randevular::sonrakiRandevu);
    connect(ui->pushButton_3, &QPushButton::clicked, this, &randevular::geriSayfaGec);
-   connect(ui->comboBoxDoktor, &QComboBox::currentTextChanged, this, &randevular::hastaListele);
+   //connect(ui->comboBoxDoktor, &QComboBox::currentTextChanged, this, &randevular::hastaListele);
+   connect(ui->btnUstSonraki, &QPushButton::clicked, this, &randevular::sonrakiRandevu);
+   connect(ui->btnUstOnceki, &QPushButton::clicked, this, randevular::oncekiRandevu);
+   connect(ui->btnAltSonraki, &QPushButton::clicked, this, &randevular::sonrakiIslem);
+   connect(ui->btnAltOnceki, &QPushButton::clicked, this, randevular::oncekiIslem);
 }
 
 randevular::~randevular() {
    delete ui;
+}
+
+void randevular::oncekiRandevu(){
+
+}
+
+void randevular::sonrakiIslem(){
+
+}
+
+void randevular::oncekiIslem(){
+
 }
 
 void randevular::geriSayfaGec() {
@@ -86,6 +101,7 @@ void randevular::randevuGoster() {
    }
 }
 
+/*
 void randevular::hastaListele(const QString &doktorAdi) {
    QList<Randevu> hastalar = SQLiteManager::instance().doktorRandevular(doktorAdi);
 
@@ -94,3 +110,4 @@ void randevular::hastaListele(const QString &doktorAdi) {
       ui->textEdit->append(r.ad + " - " + r.tc + " - " + r.tarih + " " + r.saat + " " + r.doktor);
    }
 }
+*/

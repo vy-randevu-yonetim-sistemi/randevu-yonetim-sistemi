@@ -33,6 +33,11 @@ private:
 
     void randevuGoster();
 
+    void oncekiRandevu();
+
+    void oncekiIslem();
+
+    void sonrakiIslem();
 
 };
 

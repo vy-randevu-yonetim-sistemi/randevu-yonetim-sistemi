@@ -17,12 +17,12 @@ MainWindow::MainWindow(QWidget *parent)
 
    connect(ui->btnEkle, &QPushButton::clicked, this, &MainWindow::randevuEkle);
    connect(ui->btnSil, &QPushButton::clicked, this, &MainWindow::randevuSil);
-   connect(ui->btnGoster, &QPushButton::clicked, this, &MainWindow::randevuSorgula);
+   connect(ui->btnGoster, &QPushButton::clicked, this, &MainWindow::randevuGoster);
    connect(ui->btnSorgu, &QPushButton::clicked, this, &MainWindow::randevuSorgula);
    connect(ui->calendarWidgetTarih, &QCalendarWidget::selectionChanged, this, &MainWindow::tarihSec);
    connect(ui->btnRandevularSayfa, &QPushButton::clicked, this, &MainWindow::sayfaGec);
    //connect(ui->btnEkle, &QPushButton::clicked, this, &MainWindow::stackEkle);
-   connect(ui->btnSil, &QPushButton::clicked, this, &MainWindow::stacktenCikar);
+   //connect(ui->btnSil, &QPushButton::clicked, this, &MainWindow::stacktenCikar);
    //connect(ui->btnStackGoster, &QPushButton::clicked, this, &MainWindow::stackGoster);
 
    ui->calendarWidgetTarih->setMinimumDate(QDate::currentDate());
@@ -123,9 +123,12 @@ void MainWindow::randevuGoster() {
 
    QStringList randevuListe;
    for (const Randevu &r: randevular) {
+      if(r.tc == ui->lineEditTC->text().trimmed())
+      {
       QString line = QString("%1 - %2 - %3 - %4 - %5")
                              .arg(r.ad, r.tc, r.tarih, r.saat, r.doktor);
       randevuListe.append(line);
+      }
    }
 
    auto *model = new QStringListModel(randevuListe, this);
