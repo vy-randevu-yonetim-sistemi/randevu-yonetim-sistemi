@@ -3,8 +3,8 @@
 
 #include "mainwindow.h"
 #include "DoubleLinkedList.h"
+#include "appointment.h"
 #include "hashtable.h"
-#include "randevu.h"
 #include "randevular.h"
 #include "sqlite.h"
 #include "ui_mainwindow.h"

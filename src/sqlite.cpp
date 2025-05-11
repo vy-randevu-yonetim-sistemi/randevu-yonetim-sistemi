@@ -1,5 +1,5 @@
 #include "sqlite.h"
-#include "randevu.h"
+#include "appointment.h"
 
 #include <QDebug>
 #include <QSqlDatabase>
@@ -209,18 +209,6 @@ void SQLiteManager::veritabaniYukle() {
 
       randevularLL.insertSorted(r);
    }
-}
-
-bool SQLiteManager::veritabaniSil() {
-   QSqlDatabase db = QSqlDatabase::database(connectionName);
-   QSqlQuery query(db);
-
-   if (!query.exec("DROP TABLE IF EXISTS randevular")) {
-      qCritical() << "Tablo silinemedi:" << query.lastError().text();
-      return false;
-   }
-
-   return tabloKontrol();
 }
 
 QStack<Randevu> SQLiteManager::stackDepola() const {

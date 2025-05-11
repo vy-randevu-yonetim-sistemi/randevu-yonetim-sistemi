@@ -1,6 +1,5 @@
 #ifndef VERIYAPILARI_DOKTOR_H
 #define VERIYAPILARI_DOKTOR_H
-
 #pragma once
 
 #include "DoubleLinkedList.h"
@@ -8,14 +7,14 @@
 
 class Doktor {
 public:
-    QString ad;
-    QString uzmanlik;
+   QString ad;
+   QString uzmanlik;
 
-    Doktor() = default;
-    Doktor(const QString& ad, const QString& uzmanlik)
-            : ad(ad), uzmanlik(uzmanlik) {}
+   Doktor() = default;
+   Doktor(const QString &ad, const QString &uzmanlik)
+       : ad(ad), uzmanlik(uzmanlik) {}
 
-    DoubleLinkedList<Doktor>::Node* aktifDoktor = nullptr;
+   DoubleLinkedList<Doktor>::Node *aktifDoktor = nullptr;
 };
 
-#endif // VERIYAPILARI_DOKTOR_H
+#endif// VERIYAPILARI_DOKTOR_H

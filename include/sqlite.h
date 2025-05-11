@@ -2,7 +2,7 @@
 #define VERIYAPILARI_SQLITE_H
 
 #include "DoubleLinkedList.h"
-#include "randevu.h"
+#include "appointment.h"
 
 #include <QList>
 #include <QStack>
@@ -19,7 +19,6 @@ public:
    bool randevuSil(const Randevu &data);
 
    void veritabaniYukle();
-   bool veritabaniSil();
 
    [[nodiscard]] QList<Randevu> randevular() const;
    [[nodiscard]] QList<Randevu> randevuTC(const QString &tc) const;

@@ -1,13 +1,14 @@
 #ifndef RANDEVULAR_H
 #define RANDEVULAR_H
 
-#include <QMainWindow>
-#include <QQueue>
+#include "appointment.h"
+#include "queue.h"
+
 #include <utility>
 #include <vector>
 
-#include "queue.h"
-#include "randevu.h"
+#include <QMainWindow>
+#include <QQueue>
 
 namespace Ui {
    class randevular;

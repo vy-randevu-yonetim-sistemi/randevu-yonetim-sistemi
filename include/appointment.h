@@ -1,5 +1,5 @@
-#ifndef VERIYAPILARI_RANDEVU_H
-#define VERIYAPILARI_RANDEVU_H
+#ifndef VERIYAPILARI_APPOINTMENT_H
+#define VERIYAPILARI_APPOINTMENT_H
 
 #include <QString>
 
@@ -10,11 +10,11 @@ struct Randevu {
    QString saat;
    QString doktor;
 
-   bool operator<(const Randevu& other) const {
+   bool operator<(const Randevu &other) const {
       if (tarih == other.tarih)
          return saat < other.saat;
       return tarih < other.tarih;
    }
 };
 
-#endif // VERIYAPILARI_RANDEVU_H
+#endif// VERIYAPILARI_APPOINTMENT_H

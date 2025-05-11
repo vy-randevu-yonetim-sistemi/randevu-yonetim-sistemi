@@ -1,7 +1,7 @@
 // clazy:excludeall=connect-non-signal -> Clazy strict modda olduğu için hata veriyor
 // Type casting çalışmadığı için clazy'yi devre dışı bırakıyoruz
 #include "randevular.h"
-#include "randevu.h"
+#include "appointment.h"
 #include "sqlite.h"
 #include "ui_randevular.h"
 

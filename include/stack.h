@@ -1,7 +1,7 @@
 #ifndef STACK_H
 #define STACK_H
 
-#include "randevu.h"
+#include "appointment.h"
 
 #include <stdexcept>
 #include <utility>
@@ -10,12 +10,12 @@ class Stack {
 private:
    struct Node {
       Randevu data;
-      Node* next;
+      Node *next;
 
       explicit Node(Randevu d) : data(std::move(d)), next(nullptr) {}
    };
 
-   Node* topNode = nullptr;
+   Node *topNode = nullptr;
    size_t count = 0;
 
 public:
@@ -27,11 +27,11 @@ public:
       }
    }
 
-   Stack(const Stack&) = delete;
-   Stack& operator=(const Stack&) = delete;
+   Stack(const Stack &) = delete;
+   Stack &operator=(const Stack &) = delete;
 
-   void push(const Randevu& item) {
-      Node* node = new Node(item);
+   void push(const Randevu &item) {
+      Node *node = new Node(item);
       node->next = topNode;
       topNode = node;
       ++count;
@@ -42,7 +42,7 @@ public:
          throw std::runtime_error("Stack is empty");
       }
 
-      Node* node = topNode;
+      Node *node = topNode;
       Randevu item = node->data;
       topNode = topNode->next;
       delete node;
@@ -50,7 +50,7 @@ public:
       return item;
    }
 
-   [[nodiscard]] const Randevu& top() const {
+   [[nodiscard]] const Randevu &top() const {
       if (isEmpty()) {
          throw std::runtime_error("Stack is empty");
       }
@@ -66,4 +66,4 @@ public:
    }
 };
 
-#endif // STACK_H
+#endif// STACK_H

@@ -2,8 +2,8 @@
 #define MAINWINDOW_H
 #pragma once
 
+#include "appointment.h"
 #include "queue.h"
-#include "randevu.h"
 #include "randevular.h"
 #include "stack.h"
 
@@ -34,30 +34,18 @@ private:
 
 private:
    Queue<Randevu> bekleyenRandevular;
-
    QStack<Randevu> randevuStack;
-
    std::vector<std::pair<QString, Queue<Randevu>>> doktorKuyruklari;
-
    void randevuEkle();
-
    [[maybe_unused]] void sonrakiRandevu();
-
    void randevuSil();
-
    void randevuGoster();
-
    void randevuSorgula();
-
    void stackEkle();
-
    void stacktenCikar();
-
    void stackGoster();
-
-   QString tarihSec();
-
    void sayfaGec();
+   QString tarihSec();
 };
 
 #endif// MAINWINDOW_H

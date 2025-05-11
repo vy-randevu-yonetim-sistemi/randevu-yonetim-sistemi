@@ -19,7 +19,7 @@ set(PROJECT_SOURCES
         src/mainwindow.ui
         src/sqlite.cpp
         include/sqlite.h
-        include/randevu.h
+        include/appointment.h
         src/randevular.cpp
         src/randevular.ui
         include/randevular.h
