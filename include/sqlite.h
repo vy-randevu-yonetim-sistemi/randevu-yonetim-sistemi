@@ -3,6 +3,7 @@
 #pragma once
 
 #include "randevu.h"
+#include "DoubleLinkedList.h"
 
 #include <QString>
 #include <QVariantMap>
@@ -25,6 +26,10 @@ public:
 
     [[nodiscard]] QList<Randevu> doktorRandevular(const QString &doktorAdi) const;
 
+    const DoubleLinkedList<Randevu> &randevuListesi() const;
+
+    [[nodiscard]] bool randevuVarMi(const QString &tarih, const QString &saat, const QString &doktor) const;
+
     bool randevuSil(const Randevu &data);
 
     bool veritabaniSil();
@@ -39,6 +44,8 @@ private:
     ~SQLiteManager();
 
     bool tabloKontrol();
+
+    DoubleLinkedList<Randevu> randevularLL;
 
     QString dbPath;
     QString connectionName;

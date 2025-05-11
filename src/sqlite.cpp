@@ -1,13 +1,13 @@
 #include "sqlite.h"
 #include "randevu.h"
 
-#include <QSqlDatabase>
-#include <QSqlQuery>
-#include <QSqlError>
 #include <QDebug>
+#include <QSqlDatabase>
+#include <QSqlError>
+#include <QSqlQuery>
 
 SQLiteManager::SQLiteManager()
-        : connectionName("RandevuDBConnection") {}
+    : connectionName("RandevuDBConnection") {}
 
 SQLiteManager::~SQLiteManager() {
    QSqlDatabase db = QSqlDatabase::database(connectionName, false);
@@ -63,6 +63,8 @@ bool SQLiteManager::tabloKontrol() {
 }
 
 bool SQLiteManager::randevuEkle(const Randevu &r) {
+   randevularLL.sirayaEkle(r);
+
    QSqlDatabase db = QSqlDatabase::database(connectionName);
    QSqlQuery query(db);
 
@@ -83,6 +85,10 @@ bool SQLiteManager::randevuEkle(const Randevu &r) {
    }
 
    return true;
+}
+
+const DoubleLinkedList<Randevu> &SQLiteManager::randevuListesi() const {
+   return randevularLL;
 }
 
 QList<Randevu> SQLiteManager::randevular() const {
@@ -132,6 +138,31 @@ QList<Randevu> SQLiteManager::randevuTC(const QString &tc) const {
    }
 
    return results;
+}
+
+bool SQLiteManager::randevuVarMi(const QString &tarih, const QString &saat, const QString &doktor) const {
+   QSqlDatabase db = QSqlDatabase::database(connectionName);
+   QSqlQuery query(db);
+
+   query.prepare(R"(
+        SELECT COUNT(*) FROM randevular
+        WHERE tarih = :tarih AND saat = :saat AND doktor = :doktor
+    )");
+
+   query.bindValue(":tarih", tarih);
+   query.bindValue(":saat", saat);
+   query.bindValue(":doktor", doktor);
+
+   if (!query.exec()) {
+      qWarning() << "Kontrol başarısız oldu:" << query.lastError().text();
+      return false;
+   }
+
+   if (query.next()) {
+      return query.value(0).toInt() > 0;
+   }
+
+   return false;
 }
 
 bool SQLiteManager::randevuSil(const Randevu &r) {
