@@ -47,24 +47,36 @@ void randevular::sonrakiRandevu() {
 void randevular::randevuGoster() {
    ui->tableWidget->setRowCount(0);
 
-   QList<Randevu> randevular = SQLiteManager::instance().randevular();
-   qDebug() << "Toplam randevu:" << randevular.size();
+   QString doktorAdi = ui->comboBoxDoktor->currentText().trimmed();
+   if (doktorAdi.isEmpty()) {
+      QMessageBox::warning(this, "Eksik Bilgi", "Lütfen bir doktor seçin.");
+      return;
+   }
 
-   std::sort(randevular.begin(), randevular.end(), [](const Randevu &a, const Randevu &b) {
-       QDate dateA = QDate::fromString(a.tarih, Qt::ISODate);
-       QDate dateB = QDate::fromString(b.tarih, Qt::ISODate);
+   QList<Randevu> filtered;
+   const auto &list = SQLiteManager::instance().randevuListesi();
 
-       if (dateA == dateB) {
-          QTime timeA = QTime::fromString(a.saat, "HH:mm");
-          QTime timeB = QTime::fromString(b.saat, "HH:mm");
-          return timeA < timeB;
-       }
-
-       return dateA < dateB;
+   list.traverse([&](const Randevu &r) {
+      if (r.doktor == doktorAdi) {
+         filtered.append(r);
+      }
    });
 
-   for (int i = 0; i < randevular.size(); ++i) {
-      const Randevu &r = randevular[i];
+   std::sort(filtered.begin(), filtered.end(), [](const Randevu &a, const Randevu &b) {
+      QDate dateA = QDate::fromString(a.tarih, Qt::ISODate);
+      QDate dateB = QDate::fromString(b.tarih, Qt::ISODate);
+
+      if (dateA == dateB) {
+         QTime timeA = QTime::fromString(a.saat, "HH:mm");
+         QTime timeB = QTime::fromString(b.saat, "HH:mm");
+         return timeA < timeB;
+      }
+
+      return dateA < dateB;
+   });
+
+   for (int i = 0; i < filtered.size(); ++i) {
+      const Randevu &r = filtered[i];
 
       ui->tableWidget->insertRow(i);
       ui->tableWidget->setItem(i, 0, new QTableWidgetItem(r.doktor));
@@ -76,7 +88,6 @@ void randevular::randevuGoster() {
 
 void randevular::hastaListele(const QString &doktorAdi) {
    QList<Randevu> hastalar = SQLiteManager::instance().doktorRandevular(doktorAdi);
-   qDebug() << "Doktor:" << doktorAdi << "- Hasta sayısı:" << hastalar.size();
 
    ui->textEdit->clear();
    for (const Randevu &r: hastalar) {

@@ -1,17 +1,17 @@
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
-#include "sqlite.h"
+#include "DoubleLinkedList.h"
+#include "QCalendarWidget"
+#include "hashTable.h"
 #include "randevu.h"
 #include "randevular.h"
+#include "sqlite.h"
+#include "ui_mainwindow.h"
+#include <QDebug>
 #include <QMessageBox>
 #include <QStringListModel>
-#include <QDebug>
-#include "QCalendarWidget"
-#include "DoubleLinkedList.h"
-#include "hashTable.h"
 
 MainWindow::MainWindow(QWidget *parent)
-        : QMainWindow(parent), ui(new Ui::MainWindow) {
+    : QMainWindow(parent), ui(new Ui::MainWindow) {
    ui->setupUi(this);
    randevular_form = new randevular(this);
 
@@ -31,7 +31,6 @@ MainWindow::MainWindow(QWidget *parent)
       QMessageBox::critical(this, "Veritabanı Hatası", "Veritabanı açılamadı!");
    }
    randevuStack = SQLiteManager::instance().stackDepola();
-
 }
 
 MainWindow::~MainWindow() {
@@ -78,6 +77,11 @@ void MainWindow::randevuEkle() {
       }
    }
 
+   if (SQLiteManager::instance().randevuVarMi(r.tarih, r.saat, r.doktor)) {
+      QMessageBox::warning(this, "Zaman Çakışması", "Bu tarih ve saatte bu doktor için zaten bir randevu var.");
+      return;
+   }
+
    if (SQLiteManager::instance().randevuEkle(r)) {
       ui->textEditListe->append("✓ Veritabanına eklendi:\nHasta Adı: " + r.ad +
                                 "\nHasta TC: " + r.tc +
@@ -107,7 +111,7 @@ void MainWindow::randevuEkle() {
                           "Tarih: %3\n"
                           "Saat: %4\n"
                           "Doktor: %5")
-           .arg(r.ad, r.tc, r.tarih, r.saat, r.doktor);
+                          .arg(r.ad, r.tc, r.tarih, r.saat, r.doktor);
 
    QMessageBox::information(this, "Sonraki Randevu", info);
 }
@@ -120,7 +124,7 @@ void MainWindow::randevuGoster() {
    QStringList randevuListe;
    for (const Randevu &r: randevular) {
       QString line = QString("%1 - %2 - %3 - %4 - %5")
-              .arg(r.ad, r.tc, r.tarih, r.saat, r.doktor);
+                             .arg(r.ad, r.tc, r.tarih, r.saat, r.doktor);
       randevuListe.append(line);
    }
 
@@ -152,7 +156,7 @@ void MainWindow::randevuSorgula() {
    } else {
       for (const Randevu &r: sonuc) {
          QString line = QString("Hasta Adı: %1\nTC No: %2\nTarih: %3\nSaat: %4\nDoktor: %5\n-----------")
-                 .arg(r.ad, r.tc, r.tarih, r.saat, r.doktor);
+                                .arg(r.ad, r.tc, r.tarih, r.saat, r.doktor);
          randevuListe.append(line);
       }
    }
@@ -178,7 +182,7 @@ void MainWindow::randevuSil() {
    Randevu r;
    r.ad = bilgiler[0];
    r.tc = bilgiler[1];
-   QDate date = QDate::fromString(bilgiler[2], "dd.MM.yyyy"); // Adjust format as per expected input
+   QDate date = QDate::fromString(bilgiler[2], "dd.MM.yyyy");// Adjust format as per expected input
    r.tarih = date.toString(Qt::ISODate);
    r.saat = bilgiler[3];
    r.doktor = bilgiler[4];
@@ -227,7 +231,7 @@ void MainWindow::stackGoster() {
       Randevu r = randevuStack.top();
       QString info = QString("Stack'in En Üstündeki Randevu:\n"
                              "Ad: %1\nTC: %2\nTarih: %3\nSaat: %4\nDoktor: %5")
-              .arg(r.ad, r.tc, r.tarih, r.saat, r.doktor);
+                             .arg(r.ad, r.tc, r.tarih, r.saat, r.doktor);
       QMessageBox::information(this, "Stack Görüntüle", info);
    } catch (const std::runtime_error &e) {
       QMessageBox::warning(this, "Stack Hatası", e.what());

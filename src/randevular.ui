@@ -329,13 +329,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <property name="geometry">
      <rect>
       <x>420</x>
-      <y>50</y>
+      <y>30</y>
       <width>211</width>
       <height>61</height>
      </rect>
     </property>
     <property name="text">
-     <string>Randevu Ekranı Görüntüle</string>
+     <string>Randevuları Listele</string>
     </property>
    </widget>
    <widget class="QComboBox" name="comboBoxDoktor">
@@ -401,7 +401,7 @@ QComboBox QAbstractItemView {
      <x>0</x>
      <y>0</y>
      <width>1159</width>
-     <height>27</height>
+     <height>37</height>
     </rect>
    </property>
   </widget>
