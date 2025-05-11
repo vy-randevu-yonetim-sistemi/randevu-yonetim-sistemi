@@ -18,7 +18,7 @@ randevular::randevular(QMainWindow *mainWindow, std::vector<std::pair<QString, Q
    connect(ui->comboBoxDoktor, &QComboBox::currentTextChanged, this, &randevular::hastaListele);
 
    // Randevu ekranında sağ üstteki kutunun kontrol butonu
-   connect(ui->btnUstOnceki, &QPushButton::clicked, this, &randevular::oncekiRandevu);// Bu buton UI'dan silinecek
+   //connect(ui->btnUstOnceki, &QPushButton::clicked, this, &randevular::oncekiRandevu);// Bu buton UI'dan silinecek
    connect(ui->btnUstSonraki, &QPushButton::clicked, this, &randevular::sonrakiRandevu);
 
    // Randevu ekranında sağ alttaki kutunun kontrol butoun
