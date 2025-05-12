@@ -47,6 +47,9 @@ private:
    void sonrakiRandevu();
    void oncekiRandevu();
    void randevuGoster();
+
+public slots:
+    void doktorDegisti(const QString& yeniDoktor);
 };
 
 #endif // RANDEVULAR_H
