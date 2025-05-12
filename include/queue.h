@@ -28,8 +28,30 @@ public:
    Queue(const Queue&) = delete;
    Queue& operator=(const Queue&) = delete;
 
-   Queue(Queue&&) noexcept = default;
-   Queue& operator=(Queue&&) noexcept = default;
+   Queue(Queue&& other) noexcept {
+      frontNode = other.frontNode;
+      rearNode = other.rearNode;
+      count = other.count;
+
+      other.frontNode = nullptr;
+      other.rearNode = nullptr;
+      other.count = 0;
+   }
+
+   Queue& operator=(Queue&& other) noexcept {
+      if (this != &other) {
+         clear();
+
+         frontNode = other.frontNode;
+         rearNode = other.rearNode;
+         count = other.count;
+
+         other.frontNode = nullptr;
+         other.rearNode = nullptr;
+         other.count = 0;
+      }
+      return *this;
+   }
 
    void enqueue(const T& item) {
       Node* node = new Node(item);
@@ -44,7 +66,7 @@ public:
 
    T dequeue() {
       if (isEmpty()) {
-         throw std::runtime_error("Queue is empty");
+         throw std::runtime_error("Queue boş");
       }
 
       Node* node = frontNode;
@@ -60,7 +82,7 @@ public:
 
    [[nodiscard]] const T& front() const {
       if (isEmpty()) {
-         throw std::runtime_error("Queue is empty");
+         throw std::runtime_error("Queue boş");
       }
       return frontNode->data;
    }
