@@ -174,30 +174,6 @@ Bu proje sayesinde hem **C++ GUI programlama** hem de **veri yapıları** (bağl
 
 ### 3. Stack (`Stack<T>`)
 
-**Kullanım:**
-- İşlenen hastaları (geçmiş) takip etmek (LIFO)
-
-**Zaman Karmaşıklıkları:**
-
-| İşlem     | Karmaşıklık |
-|-----------|-------------|
-| push()    | O(1)        |
-| pop()     | O(1)        |
-| top()     | O(1)        |
-| isEmpty() | O(1)        |
-
-**Avantajlar:**
-- Son işlenen hasta bilgisine hızlı erişim
-- Geri alma işlemleri için uygundur
-
-**Dezavantajlar:**
-- Sadece en üst eleman erişilebilir
-- Tüm listenin traverse edilmesi gerekiyorsa O(n)
-
----
-
-### 3. Stack (`Stack<T>`)
-
 **Kullanım Amaçları:**
 - İşlenen hastaların geçmişini kaydetmek (LIFO: Last-In First-Out)
 - "Geri Al" özelliği gibi işlemlerde son işleme geri dönebilmek
@@ -251,6 +227,51 @@ Bu proje sayesinde hem **C++ GUI programlama** hem de **veri yapıları** (bağl
 | Queue            | Bekleme sırası yönetimi (doktor bazlı) | O(1)                | FIFO yapısı, uçtan ekleme/çıkarma sabit sürede     |
 | Stack            | İşlenen hasta geçmişini takip etme     | O(1)                | LIFO yapısı, üst elemanla sabit süreli işlem       |
 | HashTable        | TC ile randevu arama/sorgulama         | O(1) (ortalama)     | Anahtar bazlı hızlı erişim, zincirleme kullanılır  |
+
+---
+
+### 4. Hash Table (`HashTable<T>`)
+
+**Kullanım Amaçları:**
+- Hastaların randevularını hızlı bir şekilde TC numarasına göre sorgulamak.
+- Randevuları yönetirken veritabanındaki verilere hızlı erişim sağlamak.
+- Randevu arama işlemlerinin optimize edilmesi ve veritabanı ile senkronize şekilde çalışmak.
+
+---
+
+#### 📊 Zaman Karmaşıklıkları (Big-O Notation)
+
+| İşlem         | Ortalama Durum | En Kötü Durum | Açıklama                                                                  |
+|---------------|----------------|---------------|---------------------------------------------------------------------------|
+| `insert()`    | O(1)           | O(n)          | Yeni eleman ekler, ancak çakışma durumunda (collision) çözümleme gerekir   |
+| `delete()`    | O(1)           | O(n)          | Eleman silinir, çakışma çözümü gerektirebilir                              |
+| `search()`    | O(1)           | O(n)          | İlgili öğe bulunur, ancak kötü durum çakışma ile ortaya çıkabilir         |
+| `resize()`    | O(n)           | O(n)          | Hash table kapasitesi arttırıldığında tüm öğeler yeniden yerleştirilir    |
+| `clear()`     | O(n)           | O(n)          | Tüm elemanlar silinir                                                       |
+
+---
+
+#### ✅ Avantajlar
+
+- **Hızlı Erişim:** Ortalama durumda elemanlara erişim sabit zaman diliminde yapılır (`O(1)`).
+- **Yüksek Performans:** Veritabanı ile uyumlu çalışarak randevulara hızlı erişim sağlar.
+- **Kolay Yönetim:** Çakışma çözümleme stratejileriyle (open addressing, chaining) hızlı ve etkili veri yönetimi yapılır.
+
+---
+
+#### ⚠️ Dezavantajlar
+
+- **Çakışma:** Aynı hash değerine sahip öğeler olursa, ekleme işlemi karmaşıklaşabilir.
+- **Bellek Kullanımı:** Hash table’ın büyüklüğü arttıkça daha fazla bellek kullanımı gerekir.
+- **Sıralama Yoktur:** Hash table, elemanları sırasız şekilde saklar; sıralama işlemi zorlaşır.
+
+---
+
+#### 🎯 Uygun Kullanım Senaryoları
+
+- Hastaların TC numarasına göre randevuların hızlıca aranması ve yönetilmesi
+- Veritabanından alınan randevu verilerinin hızlı sorgulanması ve düzenlenmesi
+- Yüksek performans gerektiren arama işlemleri
 
 ---
 
