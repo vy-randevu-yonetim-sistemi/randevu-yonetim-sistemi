@@ -219,18 +219,7 @@ Bu proje sayesinde hem **C++ GUI programlama** hem de **veri yapıları** (bağl
 
 ---
 
-## Genel Performans Özeti
-
-| Veri Yapısı      | Kullanım Durumu                        | Ortalama Performans | Açıklama                                           |
-|------------------|----------------------------------------|---------------------|----------------------------------------------------|
-| DoubleLinkedList | Sıralı liste tutma, gezme, silme       | O(n)                | Sıralı yerleştirme ve silme için tüm liste gezilir |
-| Queue            | Bekleme sırası yönetimi (doktor bazlı) | O(1)                | FIFO yapısı, uçtan ekleme/çıkarma sabit sürede     |
-| Stack            | İşlenen hasta geçmişini takip etme     | O(1)                | LIFO yapısı, üst elemanla sabit süreli işlem       |
-| HashTable        | TC ile randevu arama/sorgulama         | O(1) (ortalama)     | Anahtar bazlı hızlı erişim, zincirleme kullanılır  |
-
----
-
-### 4. Hash Table (`HashTable<T>`)
+### 4. Hash Table
 
 **Kullanım Amaçları:**
 - Hastaların randevularını hızlı bir şekilde TC numarasına göre sorgulamak.
@@ -272,6 +261,15 @@ Bu proje sayesinde hem **C++ GUI programlama** hem de **veri yapıları** (bağl
 - Hastaların TC numarasına göre randevuların hızlıca aranması ve yönetilmesi
 - Veritabanından alınan randevu verilerinin hızlı sorgulanması ve düzenlenmesi
 - Yüksek performans gerektiren arama işlemleri
+
+## Genel Performans Özeti
+
+| Veri Yapısı      | Kullanım Durumu                        | Ortalama Performans | Açıklama                                           |
+|------------------|----------------------------------------|---------------------|----------------------------------------------------|
+| DoubleLinkedList | Sıralı liste tutma, gezme, silme       | O(n)                | Sıralı yerleştirme ve silme için tüm liste gezilir |
+| Queue            | Bekleme sırası yönetimi (doktor bazlı) | O(1)                | FIFO yapısı, uçtan ekleme/çıkarma sabit sürede     |
+| Stack            | İşlenen hasta geçmişini takip etme     | O(1)                | LIFO yapısı, üst elemanla sabit süreli işlem       |
+| HashTable        | TC ile randevu arama/sorgulama         | O(1) (ortalama)     | Anahtar bazlı hızlı erişim, zincirleme kullanılır  |
 
 ---
 
