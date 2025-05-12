@@ -109,15 +109,15 @@ public:
       }
    }
 
-   void insertSorted(const T& item) {
-      Node* newNode = new Node(item);
+   void insertSorted(const T &item) {
+      Node *newNode = new Node(item);
 
       if (!head) {
          head = tail = newNode;
          return;
       }
 
-      Node* current = head;
+      Node *current = head;
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "Simplify"
       /**
@@ -149,8 +149,8 @@ public:
       current->prev = newNode;
    }
 
-   bool removeFirstMatch(const T& item) {
-      Node* current = head;
+   bool removeFirstMatch(const T &item) {
+      Node *current = head;
 
       while (current) {
          if (current->data == item) {
@@ -172,7 +172,7 @@ public:
          current = current->next;
       }
 
-      return false; // Item not found
+      return false;// Item not found
    }
 
    [[nodiscard]] bool isEmpty() const {

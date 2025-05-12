@@ -88,7 +88,7 @@ bool SQLiteManager::randevuEkle(const Randevu &r) {
    return true;
 }
 
-const DoubleLinkedList<Randevu> &SQLiteManager::randevuListesi() const {
+DoubleLinkedList<Randevu> &SQLiteManager::randevuListesi() {
    return randevularLL;
 }
 

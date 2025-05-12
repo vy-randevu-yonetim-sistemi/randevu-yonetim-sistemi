@@ -24,7 +24,7 @@ public:
    [[nodiscard]] QList<Randevu> randevuTC(const QString &tc) const;
    [[nodiscard]] QList<Randevu> doktorRandevular(const QString &doktorAdi) const;
    [[nodiscard]] QStack<Randevu> stackDepola() const;
-   [[nodiscard]] const DoubleLinkedList<Randevu> &randevuListesi() const;
+   [[nodiscard]] DoubleLinkedList<Randevu> &randevuListesi();
    [[nodiscard]] bool randevuVarMi(const QString &tarih, const QString &saat, const QString &doktor) const;
 
    SQLiteManager(const SQLiteManager &) = delete;
