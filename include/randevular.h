@@ -49,6 +49,7 @@ private:
    void sonrakiRandevu();
    void oncekiRandevu();
    void randevuGoster();
+   void logTemizle();
 
 public slots:
    void doktorDegisti(const QString &yeniDoktor);

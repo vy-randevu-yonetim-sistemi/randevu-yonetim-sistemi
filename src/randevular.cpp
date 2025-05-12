@@ -18,12 +18,19 @@ randevular::randevular(QMainWindow *mainWindow, std::vector<std::pair<QString, Q
    connect(ui->btnAnaSayfa, &QPushButton::clicked, this, &randevular::randevuGoster);
    connect(ui->pushButton_3, &QPushButton::clicked, this, &randevular::geriSayfaGec);
    connect(ui->comboBoxDoktor, &QComboBox::currentTextChanged, this, &randevular::hastaListele);
-
    connect(ui->btnUstSonraki, &QPushButton::clicked, this, &randevular::sonrakiRandevu);
+   connect(ui->btnLogTemizle, &QPushButton::clicked, this , &randevular::logTemizle);
 }
 
 randevular::~randevular() {
    delete ui;
+}
+
+void randevular::logTemizle(){
+   ui->textEdit_2->clear();
+   while(!islenenRandevular.isEmpty()){
+      islenenRandevular.pop();
+   }
 }
 
 void randevular::doktorDegisti(const QString &yeniDoktor) {
