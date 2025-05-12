@@ -195,17 +195,13 @@ void randevular::hastaListele(const QString &doktorAdi) {
 }
 
 Queue<Randevu> *randevular::doktorKuyrugunuAl(const QString &doktorAdi) {
-   qDebug() << "Check 1";
    if (!doktorKuyruklari) return nullptr;
-   qDebug() << "Check 2";
 
    for (auto &pair : *doktorKuyruklari) {
       if (pair.first == doktorAdi)
          return &pair.second;
    }
-   qDebug() << "Check 3";
 
    doktorKuyruklari->emplace_back(doktorAdi, Queue<Randevu>());
-   qDebug() << "Check 4";
    return &doktorKuyruklari->back().second;
 }
