@@ -31,7 +31,8 @@ MainWindow::MainWindow(QWidget *parent)
 
    ui->calendarWidgetTarih->setMinimumDate(QDate::currentDate());
 
-   if (!SQLiteManager::instance().openDatabase()) {
+   QString path = QCoreApplication::applicationDirPath() + "/randevular.db";
+   if (!SQLiteManager::instance().openDatabase(path)) {
       QMessageBox::critical(this, "Veritabanı Hatası", "Veritabanı açılamadı!");
    }
    randevuStack = SQLiteManager::instance().stackDepola();
