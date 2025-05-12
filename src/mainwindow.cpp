@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent)
    ui->setupUi(this);
    randevular_form = new randevular(this, &doktorKuyruklari);
 
+   connect(ui->comboBoxDoktor, &QComboBox::currentTextChanged,randevular_form, &randevular::doktorDegisti);
    connect(ui->btnEkle, &QPushButton::clicked, this, &MainWindow::randevuEkle);
    connect(ui->btnSil, &QPushButton::clicked, this, &MainWindow::randevuSil);
    connect(ui->btnSorgu, &QPushButton::clicked, this, &MainWindow::randevuSorgula);

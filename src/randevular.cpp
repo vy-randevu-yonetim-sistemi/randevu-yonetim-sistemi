@@ -6,10 +6,12 @@
 #include "ui_randevular.h"
 
 #include <QDate>
+#include <QDateTime>
 #include <QMessageBox>
+#include <algoritm>
 
 randevular::randevular(QMainWindow *mainWindow, std::vector<std::pair<QString, Queue<Randevu>>> *kuyruklar, QWidget *parent)
-    : QMainWindow(parent), m_mainWindow(mainWindow), doktorKuyruklari(kuyruklar) {
+    : QMainWindow(parent), m_mainWindow(mainWindow), doktorKuyruklari(kuyruklar), aktifDoktor("") {
    ui = new Ui::randevular;
    ui->setupUi(this);
 
@@ -28,6 +30,17 @@ randevular::randevular(QMainWindow *mainWindow, std::vector<std::pair<QString, Q
 
 randevular::~randevular() {
    delete ui;
+}
+
+void randevular::doktorDegisti(const Qstring &yeniDoktor) {
+   if (aktifDoktor != yeniDoktor) {
+      while (!islenenRandevular.isEmpty()) {
+         islenenRandevular.pop();
+      }
+      ui->textEdit_2->clear();
+      aktifDoktor = yeniDoktor;
+   }
+   hastaListele(yeniDoktor);
 }
 
 void randevular::oncekiRandevu() {
