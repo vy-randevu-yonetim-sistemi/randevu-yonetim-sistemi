@@ -45,11 +45,12 @@ Projenin şu ana kadar arayüz üzerinden desteklediği işlevler aşağıdaki g
 
 ### 2. Randevu Silme
 
-- Kullanıcıdan hasta adı ya da tarih gibi kriterlere göre randevu silinebilir.
+- Randevuyu alan kişi, istediği takdirde randevusunu iptal edebilir.
 
 ### 3. Randevuları Listeleme
 
 - Sistemdeki tüm randevular **QTableWidget** veya **QTextEdit** ile görüntülenebilir.
+- Görüntülenen randevular, doktorlar için randevu takibi amacıyla kullanılabilir.
 
 ---
 
@@ -78,49 +79,96 @@ Bu proje sayesinde hem **C++ GUI programlama** hem de **veri yapıları** (bağl
 
 ### 1. Çift Yönlü Bağlı Liste (`DoubleLinkedList`)
 
-**Kullanım:**
-- Randevuları bellekte sıralı tutmak
-- Randevu listeleme, silme, sıralı ekleme
+**Kullanım Amaçları:**
+- Randevuların bellek üzerinde dinamik ve sıralı şekilde tutulması
+- Randevuların hızlı bir şekilde başa/sona eklenebilmesi veya silinebilmesi
+- Veritabanı dışında geçici işlem yaparken liste halinde yönetim
 
-**Zaman Karmaşıklıkları:**
+---
 
-| İşlem               | Karmaşıklık |
-|---------------------|-------------|
-| Ekleme (baş/son)    | O(1)        |
-| Sıralı ekleme       | O(n)        |
-| Silme (eşleşme ile) | O(n)        |
-| Arama (traverse)    | O(n)        |
+#### 📊 Zaman Karmaşıklıkları (Big-O Notation)
 
-**Avantajlar:**
-- Çift yönlü gezinme (prev/next)
-- Sıralı ekleme yapılabilir
+| İşlem Türü        | Ortalama Durum | En Kötü Durum | Açıklama                                                       |
+|-------------------|----------------|---------------|----------------------------------------------------------------|
+| `addFront()`      | O(1)           | O(1)          | Yeni düğüm head'e bağlanır, pointerlar güncellenir             |
+| `addBack()`       | O(1)           | O(1)          | Yeni düğüm tail'e bağlanır, tail güncellenir                   |
+| `insertSorted()`  | O(n)           | O(n)          | Tarih/saat sırasına göre doğru yere yerleştirme gerekir        |
+| `removeFront()`   | O(1)           | O(1)          | Head düğümü silinir, yeni head güncellenir                     |
+| `removeBack()`    | O(1)           | O(1)          | Tail düğümü silinir, yeni tail güncellenir                     |
+| `remove(T value)` | O(n)           | O(n)          | Belirtilen veriyi arar ve ilk eşleşen düğümü siler             |
+| `search(value)`   | O(n)           | O(n)          | Lineer arama gerekir, indeksleme yok                           |
+| `traverse()`      | O(n)           | O(n)          | Tüm liste boyunca işlem yapılır (örneğin filtreleme, yazdırma) |
 
-**Dezavantajlar:**
-- Rastgele erişim yoktur
-- Her düğüm için ek bellek gerekir
+---
+
+#### ✅ Avantajlar
+
+- **Çift Yönlü Erişim:** `prev` ve `next` ile hem ileri hem geri gezinilebilir.
+- **Dinamik Boyut:** Bellekte yerleşim dinamik olduğu için liste büyüyebilir/küçülebilir.
+- **Sıralı Ekleme:** Liste sıralı tutulabilir (örneğin tarih + saat’e göre).
+- **Hızlı Uç Erişimi:** Baş ve son düğümlere erişim ve işlem sabit sürede yapılır.
+
+---
+
+#### ⚠️ Dezavantajlar
+
+- **Rastgele Erişim Yok:** İndeks ile erişim mümkün değildir (`O(1)` erişim için dizi tercih edilmeli).
+- **Bellek Maliyeti Yüksek:** Her düğümde `prev`, `next` ve veri alanları tutulur → daha fazla bellek kullanımı.
+- **Sıralı Ekleme Maliyeti:** Yeni elemanlar eklenmeden önce tüm liste taranmak zorunda kalabilir.
+
+---
+
+#### 🎯 Uygun Kullanım Senaryoları
+
+- Randevuların tarih-saat sırasına göre tutulduğu dinamik listeler
+- Baş ve sondan hızlı veri eklenip çıkarılması gereken yapılar (örneğin bekleme listeleri)
 
 ---
 
 ### 2. Kuyruk (`Queue<T>`)
 
-**Kullanım:**
-- Doktora gelen hastaları sıraya almak (FIFO)
+**Kullanım Amaçları:**
+- Doktorlara gelen hastaları geliş sırasına göre sıraya almak (FIFO: First-In First-Out)
+- Randevuların çağrılma sırasını yönetmek
+- Zaman uyumlu işleme yapılacak verileri sırayla ele almak
 
-**Zaman Karmaşıklıkları:**
+---
 
-| İşlem     | Karmaşıklık |
-|-----------|-------------|
-| enqueue() | O(1)        |
-| dequeue() | O(1)        |
-| front()   | O(1)        |
-| isEmpty() | O(1)        |
+#### 📊 Zaman Karmaşıklıkları (Big-O Notation)
 
-**Avantajlar:**
-- Bekleme sırası düzenlemede çok verimli
-- Sabit zamanda ekleme/çıkarma yapılır
+| İşlem       | Ortalama Durum | En Kötü Durum | Açıklama                                        |
+|-------------|----------------|---------------|-------------------------------------------------|
+| `enqueue()` | O(1)           | O(1)          | Arka düğüme ekleme, sadece pointer güncellenir  |
+| `dequeue()` | O(1)           | O(1)          | Ön düğümden çıkarma, sadece pointer güncellenir |
+| `front()`   | O(1)           | O(1)          | İlk sıradaki elemana doğrudan erişim            |
+| `isEmpty()` | O(1)           | O(1)          | Null kontrolüyle sabit sürede durum bilgisi     |
+| `size()`    | O(1)           | O(1)          | Sayaç tutuluyorsa sabit sürede boyut öğrenilir  |
+| `clear()`   | O(n)           | O(n)          | Tüm elemanlar sırayla silinir                   |
 
-**Dezavantajlar:**
-- Ortadaki elemana erişmek zordur (O(n))
+---
+
+#### ✅ Avantajlar
+
+- **FIFO Doğası:** İlk gelen ilk çıkar; özellikle adil randevu yönetiminde önemlidir.
+- **Sabit Süreli İşlem:** Ekleme/çıkarma işlemleri sabit sürede yapılır → yüksek performans.
+- **Uygulama Kolaylığı:** Dinamik liste tabanlı yapı ile karmaşık bellek yönetimine gerek yok.
+- **Kapsülleme:** Hastaların randevu sırasında karışmasını önler.
+
+---
+
+#### ⚠️ Dezavantajlar
+
+- **Ortadaki Elemana Erişim Zordur:** Ancak sırayı tamamen boşaltarak ulaşılabilir → `O(n)` zaman.
+- **Sadece Baş ve Son Kullanılır:** Rastgele erişim yapılamaz, sadece `front()` ve `rear` uçları erişilebilir.
+- **Bellek Temizliği Gerekebilir:** Uygun `clear()` çağrılmazsa bellek sızıntısı olabilir.
+
+---
+
+#### 🎯 Uygun Kullanım Senaryoları
+
+- Doktorlara gelen hastaların çağrı sırasının belirlenmesi
+- Arka planda işlem sırasına alınacak görevlerin yönetimi
+- Yazıcı kuyruğu, işlem sırası, destek hattı yönetimi gibi senaryolar
 
 ---
 
@@ -144,37 +192,71 @@ Bu proje sayesinde hem **C++ GUI programlama** hem de **veri yapıları** (bağl
 
 **Dezavantajlar:**
 - Sadece en üst eleman erişilebilir
-- Tam tarama gerekiyorsa O(n)
+- Tüm listenin traverse edilmesi gerekiyorsa O(n)
 
 ---
 
-### 4. Hash Tablosu (`HashTable`)
+### 3. Stack (`Stack<T>`)
 
-**Kullanım:**
-- TC numarasına göre hızlı randevu arama
+**Kullanım Amaçları:**
+- İşlenen hastaların geçmişini kaydetmek (LIFO: Last-In First-Out)
+- "Geri Al" özelliği gibi işlemlerde son işleme geri dönebilmek
+- Geçici olarak işlenmiş randevuların yığın olarak tutulması
 
-**Zaman Karmaşıklıkları (ortalama durumda):**
+---
 
-| İşlem    | Karmaşıklık |
-|----------|-------------|
-| add()    | O(1)        |
-| search() | O(1)        |
+#### 📊 Zaman Karmaşıklıkları (Big-O Notation)
 
-**Avantajlar:**
-- Hızlı erişim sağlar
-- TC gibi benzersiz verilerle doğrudan çalışır
+| İşlem       | Ortalama Durum | En Kötü Durum | Açıklama                                                                  |
+|-------------|----------------|---------------|---------------------------------------------------------------------------|
+| `push()`    | O(1)           | O(1)          | Yeni eleman en üste eklenir, sadece pointer güncellenir                   |
+| `pop()`     | O(1)           | O(1)          | En üstteki eleman çıkarılır, pointer güncellenir                          |
+| `top()`     | O(1)           | O(1)          | En üstteki elemana erişim sağlanır                                        |
+| `isEmpty()` | O(1)           | O(1)          | Stack’in boş olup olmadığını kontrol eder                                 |
+| `size()`    | O(n)           | O(n)          | Tüm elemanları sayarak hesaplanır (isteğe bağlı sayaçla O(1) yapılabilir) |
+| `clear()`   | O(n)           | O(n)          | Tüm elemanlar sırayla boşaltılır                                          |
 
-**Dezavantajlar:**
-- Çakışma durumlarında performans düşebilir
-- Sabit boyutlu tablolarda gereksiz bellek kullanılabilir
+---
+
+#### ✅ Avantajlar
+
+- **Son Eklenen İlk Çıkar:** İşlenen son hastaya ulaşmak çok hızlıdır.
+- **Basit ve Etkili:** Tek uçtan işlem yapılır, bu da uygulama açısından sadelik sağlar.
+- **Geri Alma (Undo):** Geri alma, iptal etme veya işlem geçmişini tutmak için idealdir.
+- **Bellek Yönetimi:** Dinamik yapı ile esnek boyutlandırma mümkündür.
+
+---
+
+#### ⚠️ Dezavantajlar
+
+- **Sadece En Üst Erişilebilir:** Ortadaki veya alttaki verilere erişim için tüm stack’i boşaltmak gerekir.
+- **Taramalar Maliyetlidir:** Tüm veriye ihtiyaç varsa `O(n)` zaman gerekir.
+- **Sıralama Yoktur:** Elemanlar sıralı değildir; sadece işlem sırasına göre saklanır.
+
+---
+
+#### 🎯 Uygun Kullanım Senaryoları
+
+- İşlenen randevuların geçmişini göstermek
+- Geri al (undo) işlemleri (örneğin yanlış hastayı ileri alma)
+- Fonksiyon çağrıları, işlem geçmişi, geçici geri izleme gereken durumlar
 
 ---
 
 ## Genel Performans Özeti
 
-| Veri Yapısı      | Kullanım Durumu                  | Ortalama Performans |
-|------------------|----------------------------------|---------------------|
-| DoubleLinkedList | Sıralı liste tutma, gezme, silme | O(n)                |
-| Queue            | Bekleme sırası (doktor bazlı)    | O(1)                |
-| Stack            | İşlenen hasta listesini takip    | O(1)                |
-| HashTable        | TC ile randevu sorgulama         | O(1)                |
+| Veri Yapısı      | Kullanım Durumu                        | Ortalama Performans | Açıklama                                           |
+|------------------|----------------------------------------|---------------------|----------------------------------------------------|
+| DoubleLinkedList | Sıralı liste tutma, gezme, silme       | O(n)                | Sıralı yerleştirme ve silme için tüm liste gezilir |
+| Queue            | Bekleme sırası yönetimi (doktor bazlı) | O(1)                | FIFO yapısı, uçtan ekleme/çıkarma sabit sürede     |
+| Stack            | İşlenen hasta geçmişini takip etme     | O(1)                | LIFO yapısı, üst elemanla sabit süreli işlem       |
+| HashTable        | TC ile randevu arama/sorgulama         | O(1) (ortalama)     | Anahtar bazlı hızlı erişim, zincirleme kullanılır  |
+
+---
+
+### Notlar:
+
+- `DoubleLinkedList`: Randevular tarih-saat sırasına göre tutulur; araya ekleme veya silme gerektiğinde performans düşer.
+- `Queue`: Her doktorun bekleme sırası bu yapıyla modellenir; sıradaki hasta kolayca çağrılır.
+- `Stack`: Son işlenen hastaları tutmak ve geriye dönük listeleme için kullanılır.
+- `HashTable`: Belirli bir TC'ye ait tüm randevulara anında erişim sağlar; zincirleme yöntemi kullanıldığı için çakışmalar etkili yönetilir.
