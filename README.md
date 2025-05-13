@@ -5,8 +5,8 @@ Yusuf İslam Çelik, Muhammed Celil Ayhan, Recep Kaan Karaman, Ömer Faruk Arı,
 **Tarih:** 11.05.2025
 
 > Github link: [Klinik Randevu Yönetim Sistemi](https://github.com/vy-randevu-yonetim-sistemi/randevu-yonetim-sistemi)
-
 ---
+> Docker imajı: [Docker Hub](https://hub.docker.com/r/rkaankaraman/veriyapilari)
 
 ## 1. Giriş
 
